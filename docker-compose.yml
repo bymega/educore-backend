@@ -16,6 +16,10 @@ services:
         build:
             context: ./docker/php
             dockerfile: Dockerfile
+            args:
+                user: appuser
+                uid: ${HOST_UID:-1000}
+                gid: ${HOST_GID:-1000}
         container_name: educore-php
         environment:
             - XDEBUG_MODE=debug
@@ -32,7 +36,7 @@ services:
             - educore
         extra_hosts:
             - "host.docker.internal:host-gateway"
-        user: "1000:1000"
+        user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
 
     redis:
         image: redis:alpine
