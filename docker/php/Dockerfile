@@ -1,7 +1,8 @@
-FROM php:8.3.0-fpm
+FROM php:8.5-fpm
 
-ARG user=1000
+ARG user=appuser
 ARG uid=1000
+ARG gid=1000
 
 RUN apt-get update && apt-get install -y \
     git \
@@ -36,16 +37,13 @@ RUN docker-php-ext-install mbstring exif pcntl bcmath
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-RUN useradd -G www-data,root -u $uid -d /home/$user $user \
-    && mkdir -p /home/$user/.composer \
-    && chown -R $user:$user /home/$user
-
-RUN chown -R $user:$user /var/www/html/
+RUN if ! getent group "$gid" >/dev/null; then groupadd --gid "$gid" "$user"; fi \
+    && useradd --non-unique --uid "$uid" --gid "$gid" --groups www-data,root \
+        --create-home --home-dir "/home/$user" "$user" \
+    && mkdir -p "/home/$user/.composer" \
+    && chown -R "$uid:$gid" "/home/$user"
 
 WORKDIR /var/www/html
-COPY . .
-
-RUN chmod -R 777 /var/www/html/
 
 EXPOSE 9000
 
