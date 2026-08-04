@@ -1,7 +1,7 @@
 services:
     nginx:
         image: nginx:stable-alpine
-        container_name: starter-pack-nginx
+        container_name: educore-nginx
         ports:
             - "80:80"
         volumes:
@@ -10,17 +10,17 @@ services:
         depends_on:
             - php
         networks:
-            - starter-pack
+            - educore
 
     php:
         build:
             context: ./docker/php
             dockerfile: Dockerfile
-        container_name: starter-pack-php
+        container_name: educore-php
         environment:
             - XDEBUG_MODE=debug
             - XDEBUG_CONFIG=client_host=host.docker.internal client_port=9003 idekey=docker
-            - PHP_IDE_CONFIG=serverName=horus.local
+            - PHP_IDE_CONFIG=serverName=educore.local
         volumes:
             - ./:/var/www/html
             - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
@@ -29,85 +29,28 @@ services:
             - redis
             - mysql
         networks:
-            - starter-pack
+            - educore
         extra_hosts:
             - "host.docker.internal:host-gateway"
         user: "1000:1000"
 
-    php-queue:
-        build:
-            context: ./docker/php
-            dockerfile: Dockerfile
-        container_name: starter-pack-horizon
-        command: php artisan horizon
-        volumes:
-            - ./:/var/www/html
-        depends_on:
-            - redis
-            - mysql
-        networks:
-            - starter-pack
-        user: "1000:1000"
-
-    reverb:
-        build:
-            context: ./docker/php
-            dockerfile: Dockerfile
-        container_name: starter-pack-reverb
-        command: php artisan reverb:start --host=0.0.0.0 --port=6001
-        ports:
-            - "6001:6001"
-        volumes:
-            - ./:/var/www/html
-        depends_on:
-            - redis
-            - mysql
-        networks:
-            - starter-pack
-        user: "1000:1000"
-
-    php-pulse:
-        build:
-            context: ./docker/php
-            dockerfile: Dockerfile
-        container_name: starter-pack-pulse
-        command: php artisan pulse:work
-        volumes:
-            - ./:/var/www/html
-        depends_on:
-            - redis
-            - mysql
-        networks:
-            - starter-pack
-        user: "1000:1000"
-
     redis:
         image: redis:alpine
-        container_name: starter-pack-redis
+        container_name: educore-redis
         ports:
             - "6379:6379"
         volumes:
             - redis_data:/data
         networks:
-            - starter-pack
-
-    redis-pulse:
-        image: redis:alpine
-        container_name: starter-pack-redis-pulse
-        ports:
-            - "6380:6380"
-        volumes:
-            - redis_pulse_data:/data
-        networks:
-            - starter-pack
+            - educore
 
     mysql:
         image: mysql:8.0
-        container_name: starter-pack-mysql
+        container_name: educore-mysql
         restart: always
         environment:
-            MYSQL_DATABASE: laravel
-            MYSQL_USER: laravel
+            MYSQL_DATABASE: educore
+            MYSQL_USER: educore
             MYSQL_PASSWORD: secret
             MYSQL_ROOT_PASSWORD: secret_root
         ports:
@@ -115,25 +58,25 @@ services:
         volumes:
             - mysql_data:/var/lib/mysql
         networks:
-            - starter-pack
+            - educore
         extra_hosts:
             - "host.docker.internal:host-gateway"
 
     mysql_testing:
         image: mysql:8.0
-        container_name: starter-pack-mysql-testing
+        container_name: educore-mysql-testing
         restart: always
         environment:
-            MYSQL_DATABASE: laravel_testing
-            MYSQL_USER: laravel_testing
+            MYSQL_DATABASE: educore_testing
+            MYSQL_USER: educore_testing
             MYSQL_PASSWORD: secret_testing
             MYSQL_ROOT_PASSWORD: secret_root_testing
         ports:
-            - "3307:3307"
+            - "3307:3306"
         volumes:
             - mysql_testing_data:/var/lib/mysql
         networks:
-            - starter-pack
+            - educore
         extra_hosts:
             - "host.docker.internal:host-gateway"
 
@@ -141,8 +84,7 @@ volumes:
     redis_data:
     mysql_data:
     mysql_testing_data:
-    redis_pulse_data:
 
 networks:
-    starter-pack:
+    educore:
         driver: bridge
