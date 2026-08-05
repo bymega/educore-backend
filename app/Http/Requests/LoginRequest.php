@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Password;
 
 class LoginRequest extends FormRequest
 {
@@ -25,7 +24,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => ['required', 'string', 'email'],
-            'password' => ['required', Password::min(8)->mixedCase()->numbers()->symbols()],
+            'password' => ['required', 'string'],
         ];
     }
 
@@ -36,10 +35,7 @@ class LoginRequest extends FormRequest
             'email.string' => 'O campo de e-mail deve ser uma string.',
             'email.email' => 'O campo de e-mail deve ser um endereço de e-mail válido.',
             'password.required' => 'O campo de senha é obrigatório.',
-            'password.min' => 'A senha deve ter no mínimo 8 caracteres.',
-            'password.mixedCase' => 'A senha deve conter letras maiúsculas e minúsculas.',
-            'password.numbers' => 'A senha deve conter pelo menos um número.',
-            'password.symbols' => 'A senha deve conter pelo menos um símbolo.',
+            'password.string' => 'O campo de senha deve ser uma string.',
         ];
     }
 }
