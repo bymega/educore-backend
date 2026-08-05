@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\AuthService;
-use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
+use App\Http\Resources\UserResource;
+use App\Services\AuthService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -17,14 +19,17 @@ class AuthController extends Controller
         return response()->json($this->service->login($request->validated()));
     }
 
-    /*public function me(Request $request)
+    public function lifetimeToken(Request $request): UserResource
     {
-        // Return authenticated user information
-        return response()->json($request->user());
+        return new UserResource($request->user());
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request): JsonResponse
     {
-        // Handle logout logic here
-    }*/
+        $this->service->logout($request->user());
+
+        return response()->json([
+            'message' => 'Logout realizado com sucesso.',
+        ]);
+    }
 }
