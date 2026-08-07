@@ -35,36 +35,36 @@ class UserController extends Controller
         ], 201);
     }
 
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, string $uuid)
     {
-        //
+        $this->service->update($uuid, $request->validated());
+
+        return response()->json([
+            'message' => 'Usuário atualizado com sucesso.'
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function delete(string $uuid)
     {
-        //
+        $this->service->delete($uuid);
+
+        return response()->json([
+            'message' => 'Usuário excluído com sucesso.'
+        ]);
+    }
+
+    public function restore(string $uuid)
+    {
+        $this->service->restore($uuid);
+
+        return response()->json([
+            'message' => 'Usuário restaurado com sucesso.'
+        ]);
     }
 }
