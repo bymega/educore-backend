@@ -33,4 +33,14 @@ class UserRepository implements UserRepositoryInterface
   {
     return $this->entity::create($data);
   }
+
+  public function update(User $entity, array $data)
+  {
+    $entity->update($data);
+  }
+
+  public function findByUuid(string $uuid): ?User
+  {
+    return $this->entity::withTrashed()->where('uuid', $uuid)->first();
+  }
 }
