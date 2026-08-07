@@ -12,6 +12,7 @@ class AppServiceProvider extends ServiceProvider
 {
     public array $bindings = [
         \App\Repositories\Interface\AuthRepositoryInterface::class => \App\Repositories\Eloquent\AuthRepository::class,
+        \App\Repositories\Interface\UserRepositoryInterface::class => \App\Repositories\Eloquent\UserRepository::class,
     ];
 
 
