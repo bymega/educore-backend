@@ -43,4 +43,14 @@ class UserRepository implements UserRepositoryInterface
   {
     return $this->entity::withTrashed()->where('uuid', $uuid)->first();
   }
+
+  public function delete(User $entity): bool
+  {
+    return $entity->delete();
+  }
+
+  public function restore(User $entity): bool
+  {
+    return $entity->restore();
+  }
 }

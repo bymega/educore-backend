@@ -13,4 +13,8 @@ interface UserRepositoryInterface
   public function update(User $entity, array $data);
 
   public function findByUuid(string $uuid): ?User;
+
+  public function delete(User $entity): bool;
+
+  public function restore(User $entity): bool;
 }

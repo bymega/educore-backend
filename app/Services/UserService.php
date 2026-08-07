@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Repositories\Interface\UserRepositoryInterface;
 use App\Http\Resources\UserCollection;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\Translation\Exception\NotFoundResourceException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserService
 {
@@ -36,7 +36,7 @@ class UserService
       $user = $this->repository->findByUuid($uuid);
 
       if (!$user) {
-        throw  new NotFoundResourceException('Usuário não encontrado.');
+        throw  new NotFoundHttpException('Usuário não encontrado.');
       }
 
       if (isset($data['role'])) {
@@ -49,5 +49,27 @@ class UserService
 
       return $user;
     });
+  }
+
+  public function delete(string $uuid): void
+  {
+    $user = $this->repository->findByUuid($uuid);
+
+    if (!$user) {
+      throw  new NotFoundHttpException('Usuário não encontrado.');
+    }
+
+    $this->repository->delete($user);
+  }
+
+  public function restore(string $uuid): void
+  {
+    $user = $this->repository->findByUuid($uuid);
+
+    if (!$user) {
+      throw  new NotFoundHttpException('Usuário não encontrado.');
+    }
+
+    $this->repository->restore($user);
   }
 }

@@ -50,8 +50,21 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function delete(string $uuid)
     {
-        //
+        $this->service->delete($uuid);
+
+        return response()->json([
+            'message' => 'Usuário excluído com sucesso.'
+        ]);
+    }
+
+    public function restore(string $uuid)
+    {
+        $this->service->restore($uuid);
+
+        return response()->json([
+            'message' => 'Usuário restaurado com sucesso.'
+        ]);
     }
 }
