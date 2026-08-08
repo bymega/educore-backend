@@ -13,8 +13,13 @@ class UserController extends Controller
 {
 
     public function __construct(private readonly UserService $service) {}
+
     /**
-     * Display a listing of the resource.
+     * Listar usuários
+     *
+     * Retorna a lista paginada de usuários.
+     *
+     * @group Usuários
      */
     public function index(Request $request): UserCollection
     {
@@ -24,7 +29,9 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Criar usuário
+     *
+     * @group Usuários
      */
     public function store(StoreUserRequest $request)
     {
@@ -36,7 +43,9 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Atualizar usuário
+     *
+     * @group Usuários
      */
     public function update(UpdateUserRequest $request, string $uuid)
     {
@@ -48,7 +57,9 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Deletar usuário
+     *
+     * @group Usuários
      */
     public function delete(string $uuid)
     {
@@ -59,6 +70,11 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Restaurar usuário
+     *
+     * @group Usuários
+     */
     public function restore(string $uuid)
     {
         $this->service->restore($uuid);

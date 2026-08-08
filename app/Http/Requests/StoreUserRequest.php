@@ -28,10 +28,38 @@ class StoreUserRequest extends FormRequest
             'email' => ['required', 'email', 'unique:users,email'],
             'phone' => ['nullable', 'string'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password_confirmation' => ['required', 'string', 'min:8'],
             'role' => [
                 'required',
                 'string',
                 Rule::exists('roles', 'name')->where('guard_name', 'web'),
+            ],
+        ];
+    }
+
+    /**
+     * Get the body parameter descriptions and examples for the API documentation.
+     */
+    public function bodyParameters(): array
+    {
+        return [
+            'name' => [
+                'example' => 'Ricardo',
+            ],
+            'email' => [
+                'example' => 'ricardo@educore.com',
+            ],
+            'phone' => [
+                'example' => '11999999999',
+            ],
+            'password' => [
+                'example' => 'adm@1234',
+            ],
+            'password_confirmation' => [
+                'example' => 'adm@1234',
+            ],
+            'role' => [
+                'example' => 'professor',
             ],
         ];
     }
