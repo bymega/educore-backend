@@ -75,11 +75,6 @@ class RolePermissionSeeder extends Seeder
                 'grades.view',
                 'attendance.view',
             ],
-            'responsavel' => [
-                'classes.view',
-                'grades.view',
-                'attendance.view',
-            ],
             'secretario' => [
                 'users.view',
                 'users.create',
