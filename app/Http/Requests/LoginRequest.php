@@ -38,4 +38,19 @@ class LoginRequest extends FormRequest
             'password.string' => 'O campo de senha deve ser uma string.',
         ];
     }
+
+    /**
+     * Get the body parameter descriptions and examples for the API documentation.
+     */
+    public function bodyParameters(): array
+    {
+        return [
+            'email' => [
+                'example' => 'admin@educore.com',
+            ],
+            'password' => [
+                'example' => 'Ab123456#@',
+            ]
+        ];
+    }
 }

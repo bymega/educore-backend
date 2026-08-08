@@ -113,7 +113,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: August 7, 2026</li>
+        <li>Last updated: August 8, 2026</li>
     </ul>
 </div>
 
@@ -155,8 +155,8 @@ You can switch the language used with the tabs at the top right (or from the nav
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"email\": \"gbailey@example.net\",
-    \"password\": \"|]|{+-\"
+    \"email\": \"admin@educore.com\",
+    \"password\": \"Ab123456#@\"
 }"
 </code></pre></div>
 
@@ -172,8 +172,8 @@ const headers = {
 };
 
 let body = {
-    "email": "gbailey@example.net",
-    "password": "|]|{+-"
+    "email": "admin@educore.com",
+    "password": "Ab123456#@"
 };
 
 fetch(url, {
@@ -265,10 +265,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-login"
-               value="gbailey@example.net"
+               value="admin@educore.com"
                data-component="body">
     <br>
-<p>Must be a valid email address. Example: <code>gbailey@example.net</code></p>
+<p>Must be a valid email address. Example: <code>admin@educore.com</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -277,10 +277,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-login"
-               value="|]|{+-"
+               value="Ab123456#@"
                data-component="body">
     <br>
-<p>Example: <code>|]|{+-</code></p>
+<p>Example: <code>Ab123456#@</code></p>
         </div>
         </form>
 
@@ -717,11 +717,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"Maria Silva\",
-    \"email\": \"maria@educore.com\",
+    \"name\": \"Ricardo\",
+    \"email\": \"ricardo@educore.com\",
     \"phone\": \"11999999999\",
-    \"password\": \"Senha@123\",
-    \"password_confirmation\": \"Senha@123\",
+    \"password\": \"adm@1234\",
+    \"password_confirmation\": \"adm@1234\",
     \"role\": \"professor\"
 }"
 </code></pre></div>
@@ -739,11 +739,11 @@ const headers = {
 };
 
 let body = {
-    "name": "Maria Silva",
-    "email": "maria@educore.com",
+    "name": "Ricardo",
+    "email": "ricardo@educore.com",
     "phone": "11999999999",
-    "password": "Senha@123",
-    "password_confirmation": "Senha@123",
+    "password": "adm@1234",
+    "password_confirmation": "adm@1234",
     "role": "professor"
 };
 
@@ -848,10 +848,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="POSTapi-users"
-               value="Maria Silva"
+               value="Ricardo"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>Maria Silva</code></p>
+<p>Must not be greater than 255 characters. Example: <code>Ricardo</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
@@ -860,10 +860,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-users"
-               value="maria@educore.com"
+               value="ricardo@educore.com"
                data-component="body">
     <br>
-<p>Must be a valid email address. Example: <code>maria@educore.com</code></p>
+<p>Must be a valid email address. Example: <code>ricardo@educore.com</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
@@ -884,10 +884,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-users"
-               value="Senha@123"
+               value="adm@1234"
                data-component="body">
     <br>
-<p>Must be at least 8 characters. Example: <code>Senha@123</code></p>
+<p>Must be at least 8 characters. Example: <code>adm@1234</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password_confirmation</code></b>&nbsp;&nbsp;
@@ -896,10 +896,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password_confirmation"                data-endpoint="POSTapi-users"
-               value="Senha@123"
+               value="adm@1234"
                data-component="body">
     <br>
-<p>Must be at least 8 characters. Example: <code>Senha@123</code></p>
+<p>Must be at least 8 characters. Example: <code>adm@1234</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>role</code></b>&nbsp;&nbsp;
@@ -934,11 +934,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"b\",
-    \"email\": \"zbailey@example.net\",
-    \"phone\": \"iyvdljnikhwaykcm\",
+    \"name\": \"Ricardo abc\",
+    \"email\": \"ricardoS@educore.com\",
+    \"phone\": \"11999999999\",
     \"status\": \"active\",
-    \"role\": \"architecto\"
+    \"role\": \"professor\"
 }"
 </code></pre></div>
 
@@ -955,11 +955,11 @@ const headers = {
 };
 
 let body = {
-    "name": "b",
-    "email": "zbailey@example.net",
-    "phone": "iyvdljnikhwaykcm",
+    "name": "Ricardo abc",
+    "email": "ricardoS@educore.com",
+    "phone": "11999999999",
     "status": "active",
-    "role": "architecto"
+    "role": "professor"
 };
 
 fetch(url, {
@@ -1076,10 +1076,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="PUTapi-users--uuid-"
-               value="b"
+               value="Ricardo abc"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>b</code></p>
+<p>Must not be greater than 255 characters. Example: <code>Ricardo abc</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
@@ -1088,10 +1088,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="PUTapi-users--uuid-"
-               value="zbailey@example.net"
+               value="ricardoS@educore.com"
                data-component="body">
     <br>
-<p>Must be a valid email address. Must not be greater than 255 characters. Example: <code>zbailey@example.net</code></p>
+<p>Must be a valid email address. Must not be greater than 255 characters. Example: <code>ricardoS@educore.com</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
@@ -1100,10 +1100,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="phone"                data-endpoint="PUTapi-users--uuid-"
-               value="iyvdljnikhwaykcm"
+               value="11999999999"
                data-component="body">
     <br>
-<p>Must not be greater than 20 characters. Example: <code>iyvdljnikhwaykcm</code></p>
+<p>Must not be greater than 20 characters. Example: <code>11999999999</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
@@ -1126,10 +1126,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="role"                data-endpoint="PUTapi-users--uuid-"
-               value="architecto"
+               value="professor"
                data-component="body">
     <br>
-<p>Must match an existing stored value. Example: <code>architecto</code></p>
+<p>Must match an existing stored value. Example: <code>professor</code></p>
         </div>
         </form>
 

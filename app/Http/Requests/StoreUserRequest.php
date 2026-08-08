@@ -44,19 +44,19 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => [
-                'example' => 'Maria Silva',
+                'example' => 'Ricardo',
             ],
             'email' => [
-                'example' => 'maria@educore.com',
+                'example' => 'ricardo@educore.com',
             ],
             'phone' => [
                 'example' => '11999999999',
             ],
             'password' => [
-                'example' => 'Senha@123',
+                'example' => 'adm@1234',
             ],
             'password_confirmation' => [
-                'example' => 'Senha@123',
+                'example' => 'adm@1234',
             ],
             'role' => [
                 'example' => 'professor',

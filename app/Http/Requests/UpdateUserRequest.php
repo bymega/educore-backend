@@ -67,4 +67,34 @@ class UpdateUserRequest extends FormRequest
             ],
         ];
     }
+
+    /**
+     * Get the body parameter descriptions and examples for the API documentation.
+     */
+    public function bodyParameters(): array
+    {
+        return [
+            'name' => [
+                'example' => 'Ricardo abc',
+            ],
+            'email' => [
+                'example' => 'ricardoS@educore.com',
+            ],
+            'phone' => [
+                'example' => '11999999999',
+            ],
+            'password' => [
+                'example' => 'adm@1234',
+            ],
+            'password_confirmation' => [
+                'example' => 'adm@1234',
+            ],
+            'status' => [
+                'example' => 'active',
+            ],
+            'role' => [
+                'example' => 'professor',
+            ],
+        ];
+    }
 }
