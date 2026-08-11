@@ -33,7 +33,7 @@ class TeacherRequest extends FormRequest
                 ->value('id');
 
             if (! $teacherId) {
-                throw new NotFoundHttpException('Aluno não encontrado.');
+                throw new NotFoundHttpException('Professor não encontrado.');
             }
         }
 
