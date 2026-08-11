@@ -6,6 +6,7 @@ use App\Models\Teacher;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TeacherRequest extends FormRequest
 {
@@ -30,6 +31,10 @@ class TeacherRequest extends FormRequest
             $teacherId = Teacher::query()
                 ->where('uuid', $uuid)
                 ->value('id');
+
+            if (! $teacherId) {
+                throw new NotFoundHttpException('Aluno não encontrado.');
+            }
         }
 
         return [
