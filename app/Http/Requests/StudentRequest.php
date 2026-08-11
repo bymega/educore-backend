@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Student;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- * Query parameters para filtrar e paginar estudantes.
- */
 class StudentRequest extends FormRequest
 {
     public function authorize(): bool
@@ -19,33 +19,57 @@ class StudentRequest extends FormRequest
      */
     public function rules(): array
     {
+        $studentId = null;
+
+        if ($uuid = $this->route('uuid')) {
+            $studentId = Student::query()
+                ->where('uuid', $uuid)
+                ->value('id');
+
+            if (! $studentId) {
+                throw new NotFoundHttpException('Aluno não encontrado.');
+            }
+        }
+
         return [
-            'name' => ['nullable', 'string', 'max:255'],
-            'per_page' => ['nullable', 'integer', 'min:1', 'max:100'],
-            'page' => ['nullable', 'integer', 'min:1'],
+            'user_id' => [
+                'required',
+                'integer',
+                Rule::exists('users', 'id')->whereNull('deleted_at'),
+                Rule::unique('students', 'user_id')->ignore($studentId),
+            ],
+            'registration_number' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('students', 'registration_number')->ignore($studentId),
+            ],
+            'birth_date' => ['required', 'date', 'before:today'],
+            'gender' => ['nullable', Rule::in(['male', 'female', 'other'])],
+            'cpf' => [
+                'nullable',
+                'string',
+                'regex:/^(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$/',
+                Rule::unique('students', 'cpf')->ignore($studentId),
+            ],
+            'address' => ['nullable', 'string', 'max:255'],
+            'status' => ['sometimes', Rule::in(['active', 'inactive', 'blocked'])],
         ];
     }
 
     /**
-     * Descrições e exemplos dos filtros exibidos na documentação da API.
-     *
      * @return array<string, array<string, mixed>>
      */
-    public function queryParameters(): array
+    public function bodyParameters(): array
     {
         return [
-            'name' => [
-                'description' => 'Nome ou parte do nome do estudante.',
-                'example' => 'Maria',
-            ],
-            'per_page' => [
-                'description' => 'Quantidade de estudantes por página, entre 1 e 100.',
-                'example' => 10,
-            ],
-            'page' => [
-                'description' => 'Número da página que será retornada.',
-                'example' => 1,
-            ],
+            'user_id' => ['example' => 1],
+            'registration_number' => ['example' => 'STD101'],
+            'birth_date' => ['example' => '2010-05-15'],
+            'gender' => ['example' => 'female'],
+            'cpf' => ['example' => '52289012345'],
+            'address' => ['example' => 'Rua das Flores, 123'],
+            'status' => ['example' => 'active'],
         ];
     }
 
@@ -55,13 +79,12 @@ class StudentRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.string' => 'O nome deve ser um texto.',
-            'name.max' => 'O nome não pode ter mais de 255 caracteres.',
-            'per_page.integer' => 'A quantidade por página deve ser um número inteiro.',
-            'per_page.min' => 'A quantidade por página deve ser pelo menos 1.',
-            'per_page.max' => 'A quantidade por página não pode ser maior que 100.',
-            'page.integer' => 'A página deve ser um número inteiro.',
-            'page.min' => 'A página deve ser pelo menos 1.',
+            'user_id.exists' => 'O usuário informado não existe ou está excluído.',
+            'user_id.unique' => 'Este usuário já possui um cadastro de aluno.',
+            'registration_number.unique' => 'Esta matrícula já está cadastrada.',
+            'birth_date.before' => 'A data de nascimento deve ser anterior à data atual.',
+            'cpf.regex' => 'O CPF deve conter 11 dígitos ou estar no formato 000.000.000-00.',
+            'cpf.unique' => 'Este CPF já está cadastrado.',
         ];
     }
 }

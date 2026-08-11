@@ -35,8 +35,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('students')->group(function () {
         Route::get('/', [StudentController::class, 'index'])->middleware('permission:students.view');
-        //Route::post('/', [StudentController::class, 'store'])->middleware('permission:students.create');
-        //Route::put('/{uuid}', [StudentController::class, 'update'])->middleware('permission:students.update');
+        Route::post('/', [StudentController::class, 'store'])->middleware('permission:students.create');
+        Route::put('/{uuid}', [StudentController::class, 'update'])->middleware('permission:students.update');
         //Route::delete('/{uuid}', [StudentController::class, 'delete'])->middleware('permission:students.delete');
         //Route::put('/{uuid}/restore', [StudentController::class, 'restore'])->middleware('permission:students.restore');
     });
