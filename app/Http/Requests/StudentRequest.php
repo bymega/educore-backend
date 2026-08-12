@@ -2,38 +2,32 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Teacher;
-use Illuminate\Contracts\Validation\ValidationRule;
+use App\Models\Student;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class TeacherRequest extends FormRequest
+class StudentRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
+     * @return array<string, array<int, string>>
      */
     public function rules(): array
     {
-        $teacherId = null;
+        $studentId = null;
 
         if ($uuid = $this->route('uuid')) {
-            $teacherId = Teacher::query()
+            $studentId = Student::query()
                 ->where('uuid', $uuid)
                 ->value('id');
 
-            if (! $teacherId) {
-                throw new NotFoundHttpException('Professor não encontrado.');
+            if (! $studentId) {
+                throw new NotFoundHttpException('Aluno não encontrado.');
             }
         }
 
@@ -42,59 +36,53 @@ class TeacherRequest extends FormRequest
                 'required',
                 'integer',
                 Rule::exists('users', 'id')->whereNull('deleted_at'),
-                Rule::unique('teachers', 'user_id')->ignore($teacherId),
+                Rule::unique('students', 'user_id')->ignore($studentId),
             ],
             'registration_number' => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('teachers', 'registration_number')->ignore($teacherId),
+                Rule::unique('students', 'registration_number')->ignore($studentId),
             ],
+            'birth_date' => ['required', 'date', 'before:today'],
+            'gender' => ['nullable', Rule::in(['male', 'female', 'other'])],
             'cpf' => [
-                'required',
+                'nullable',
                 'string',
                 'regex:/^(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$/',
-                Rule::unique('teachers', 'cpf')->ignore($teacherId),
+                Rule::unique('students', 'cpf')->ignore($studentId),
             ],
-            'specialization' => ['nullable', 'string', 'max:255'],
+            'address' => ['nullable', 'string', 'max:255'],
             'status' => ['sometimes', Rule::in(['active', 'inactive', 'blocked'])],
         ];
     }
 
     /**
-     * Get the body parameter descriptions and examples for the API documentation.
+     * @return array<string, array<string, mixed>>
      */
     public function bodyParameters(): array
     {
         return [
-            'user_id' => [
-                'example' => 1,
-            ],
-            'registration_number' => [
-                'example' => 'TCH101',
-            ],
-            'cpf' => [
-                'example' => '52289012345',
-            ],
-            'specialization' => [
-                'example' => 'Graduado em Matemática',
-            ],
-            'status' => [
-                'example' => 'active',
-            ],
+            'user_id' => ['example' => 1],
+            'registration_number' => ['example' => 'STD101'],
+            'birth_date' => ['example' => '2010-05-15'],
+            'gender' => ['example' => 'female'],
+            'cpf' => ['example' => '52289012345'],
+            'address' => ['example' => 'Rua das Flores, 123'],
+            'status' => ['example' => 'active'],
         ];
     }
 
     /**
-     * Get custom validation messages.
-     *
      * @return array<string, string>
      */
     public function messages(): array
     {
         return [
-            'user_id.unique' => 'Este usuário já possui um cadastro de professor.',
+            'user_id.exists' => 'O usuário informado não existe ou está excluído.',
+            'user_id.unique' => 'Este usuário já possui um cadastro de aluno.',
             'registration_number.unique' => 'Esta matrícula já está cadastrada.',
+            'birth_date.before' => 'A data de nascimento deve ser anterior à data atual.',
             'cpf.regex' => 'O CPF deve conter 11 dígitos ou estar no formato 000.000.000-00.',
             'cpf.unique' => 'Este CPF já está cadastrado.',
         ];
