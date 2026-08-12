@@ -42,4 +42,14 @@ class StudentRepository implements StudentRepositoryInterface
     {
         return $this->entity::withTrashed()->where('uuid', $uuid)->first();
     }
+
+    public function delete(Student $entity): bool
+    {
+        return $entity->delete();
+    }
+
+    public function restore(Student $entity): bool
+    {
+        return $entity->restore();
+    }
 }

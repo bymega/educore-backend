@@ -14,4 +14,8 @@ interface StudentRepositoryInterface
     public function update(Student $entity, array $data): bool;
 
     public function findByUuid(string $uuid): ?Student;
+
+    public function delete(Student $entity): bool;
+
+    public function restore(Student $entity): bool;
 }

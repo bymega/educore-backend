@@ -36,4 +36,22 @@ class StudentController extends Controller
             'message' => 'Aluno atualizado com sucesso.'
         ]);
     }
+
+    public function delete(string $uuid)
+    {
+        $this->service->delete($uuid);
+
+        return response()->json([
+            'message' => 'Aluno excluído com sucesso'
+        ]);
+    }
+
+    public function restore(string $uuid)
+    {
+        $this->service->restore($uuid);
+
+        return response()->json([
+            'message' => 'Aluno restaurado com sucesso'
+        ]);
+    }
 }

@@ -29,4 +29,26 @@ class StudentService
 
     return $this->repository->update($student, $data);
   }
+
+  public function delete(string $uuid): void
+  {
+    $student = $this->repository->findByUuid($uuid);
+
+    if (!$student) {
+      throw new NotFoundHttpException('Aluno não encontrado.');
+    }
+
+    $this->repository->delete($student);
+  }
+
+  public function restore(string $uuid): void
+  {
+    $student = $this->repository->findByUuid($uuid);
+
+    if (!$student) {
+      throw new NotFoundHttpException('Aluno não encontrado.');
+    }
+
+    $this->repository->restore($student);
+  }
 }
