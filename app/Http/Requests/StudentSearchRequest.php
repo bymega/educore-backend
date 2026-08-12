@@ -34,11 +34,11 @@ class StudentSearchRequest extends FormRequest
         return [
             'name' => [
                 'description' => 'Nome ou parte do nome do estudante.',
-                'example' => 'Maria',
+                'example' => 'b',
             ],
             'per_page' => [
                 'description' => 'Quantidade de estudantes por página, entre 1 e 100.',
-                'example' => 10,
+                'example' => 1
             ],
             'page' => [
                 'description' => 'Número da página que será retornada.',

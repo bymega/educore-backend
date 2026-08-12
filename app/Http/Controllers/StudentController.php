@@ -12,6 +12,13 @@ class StudentController extends Controller
 {
     public function __construct(private readonly StudentService $service) {}
 
+    /**
+     * Listar Alunos
+     *
+     * Retorna a lista paginada de alunos.
+     *
+     * @group Alunos
+     */
     public function index(StudentSearchRequest $request): StudentCollection
     {
         $student = $this->service->getAll($request->validated());
@@ -19,6 +26,11 @@ class StudentController extends Controller
         return new StudentCollection($student);
     }
 
+    /**
+     * Cadastrar Alunos
+     *
+     * @group Alunos
+     */
     public function store(StudentRequest $request): JsonResponse
     {
         $this->service->create($request->validated());
@@ -28,6 +40,11 @@ class StudentController extends Controller
         ], 201);
     }
 
+    /**
+     * Atualizar Alunos
+     *
+     * @group Alunos
+     */
     public function update(StudentRequest $request, string $uuid): JsonResponse
     {
         $this->service->update($uuid, $request->validated());
@@ -37,6 +54,11 @@ class StudentController extends Controller
         ]);
     }
 
+    /**
+     * Deletar Alunos
+     *
+     * @group Alunos
+     */
     public function delete(string $uuid)
     {
         $this->service->delete($uuid);
@@ -46,6 +68,11 @@ class StudentController extends Controller
         ]);
     }
 
+    /**
+     * Restaurar Alunos
+     *
+     * @group Alunos
+     */
     public function restore(string $uuid)
     {
         $this->service->restore($uuid);
