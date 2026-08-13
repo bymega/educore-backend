@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
@@ -39,5 +40,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/{uuid}', [StudentController::class, 'update'])->middleware('permission:students.update');
         Route::delete('/{uuid}', [StudentController::class, 'delete'])->middleware('permission:students.delete');
         Route::put('/{uuid}/restore', [StudentController::class, 'restore'])->middleware('permission:students.restore');
+    });
+
+    Route::prefix('guardians')->group(function () {
+        Route::get('/', [GuardianController::class, 'index'])->middleware('permission:guardians.view');
+        Route::post('/', [GuardianController::class, 'store'])->middleware('permission:guardians.create');
+        Route::put('/{uuid}', [GuardianController::class, 'update'])->middleware('permission:guardians.update');
+        Route::delete('/{uuid}', [GuardianController::class, 'delete'])->middleware('permission:guardians.delete');
+        Route::put('/{uuid}/restore', [GuardianController::class, 'index'])->middleware('permission:guardians.restore');
     });
 });
