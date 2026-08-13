@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\StudentRequest;
 use App\Http\Requests\StudentSearchRequest;
 use App\Http\Resources\StudentCollection;
@@ -31,7 +32,7 @@ class StudentController extends Controller
      *
      * @group Alunos
      */
-    public function store(StudentRequest $request): JsonResponse
+    public function store(StoreStudentRequest $request): JsonResponse
     {
         $this->service->create($request->validated());
 
@@ -50,7 +51,7 @@ class StudentController extends Controller
         $this->service->update($uuid, $request->validated());
 
         return response()->json([
-            'message' => 'Aluno atualizado com sucesso.'
+            'message' => 'Aluno atualizado com sucesso.',
         ]);
     }
 
@@ -64,7 +65,7 @@ class StudentController extends Controller
         $this->service->delete($uuid);
 
         return response()->json([
-            'message' => 'Aluno excluído com sucesso'
+            'message' => 'Aluno excluído com sucesso',
         ]);
     }
 
@@ -78,7 +79,7 @@ class StudentController extends Controller
         $this->service->restore($uuid);
 
         return response()->json([
-            'message' => 'Aluno restaurado com sucesso'
+            'message' => 'Aluno restaurado com sucesso',
         ]);
     }
 }
