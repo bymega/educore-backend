@@ -40,4 +40,15 @@ class GuardianRepository implements GuardianRepositoryInterface
     {
         return $this->entity::withTrashed()->where('uuid', $uuid)->first();
     }
+
+
+    public function delete(Guardian $entity): bool
+    {
+        return $entity->delete();
+    }
+
+    public function restore(Guardian $entity): bool
+    {
+        return $entity->restore();
+    }
 }

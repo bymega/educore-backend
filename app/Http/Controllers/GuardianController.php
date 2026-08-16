@@ -27,4 +27,22 @@ class GuardianController extends Controller
             'message' => 'Responsável atualizado com sucesso.'
         ]);
     }
+
+    public function delete(string $uuid)
+    {
+        $this->service->delete($uuid);
+
+        return response()->json([
+            'message' => 'Responsável excluído com sucesso.'
+        ]);
+    }
+
+    public function restore(string $uuid)
+    {
+        $this->service->restore($uuid);
+
+        return response()->json([
+            'message' => 'Responsável restaurado com sucesso.'
+        ]);
+    }
 }

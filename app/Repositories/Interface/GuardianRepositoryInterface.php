@@ -12,4 +12,8 @@ interface GuardianRepositoryInterface
   public function findByUuid(string $uuid): ?Guardian;
 
   public function update(Guardian $entity, array $data): bool;
+
+  public function delete(Guardian $entity): bool;
+
+  public function restore(Guardian $entity): bool;
 }

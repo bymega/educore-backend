@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Guardian;
 use App\Repositories\Interface\GuardianRepositoryInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -23,5 +24,27 @@ class GuardianService
     }
 
     return $this->repository->update($guardian, $data);
+  }
+
+  public function delete(string $uuid): void
+  {
+    $guardian = $this->repository->findByUuid($uuid);
+
+    if (!$guardian) {
+      throw new NotFoundHttpException('Responsável não encontrado.');
+    }
+
+    $this->repository->delete($guardian);
+  }
+
+  public function restore(string $uuid): void
+  {
+    $guardian = $this->repository->findByUuid($uuid);
+
+    if (!$guardian) {
+      throw new NotFoundHttpException('Responsável não encontrado.');
+    }
+
+    $this->repository->restore($guardian);
   }
 }
