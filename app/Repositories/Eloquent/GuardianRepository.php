@@ -30,4 +30,14 @@ class GuardianRepository implements GuardianRepositoryInterface
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);
     }
+
+    public function update(Guardian $entity, array $data): bool
+    {
+        return $entity->update($data);
+    }
+
+    public function findByUuid(string $uuid): ?Guardian
+    {
+        return $this->entity::withTrashed()->where('uuid', $uuid)->first();
+    }
 }

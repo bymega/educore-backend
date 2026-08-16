@@ -44,9 +44,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('guardians')->group(function () {
         Route::get('/', [GuardianController::class, 'index'])->middleware('permission:guardians.view');
-        Route::post('/', [GuardianController::class, 'store'])->middleware('permission:guardians.create');
         Route::put('/{uuid}', [GuardianController::class, 'update'])->middleware('permission:guardians.update');
         Route::delete('/{uuid}', [GuardianController::class, 'delete'])->middleware('permission:guardians.delete');
-        Route::put('/{uuid}/restore', [GuardianController::class, 'index'])->middleware('permission:guardians.restore');
+        Route::put('/{uuid}/restore', [GuardianController::class, 'restore'])->middleware('permission:guardians.restore');
     });
 });
