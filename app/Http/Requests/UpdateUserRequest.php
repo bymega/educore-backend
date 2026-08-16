@@ -21,9 +21,15 @@ class UpdateUserRequest extends FormRequest
             ->where('uuid', $uuid)
             ->exists();
 
-        if (!$exists) {
+        if (! $exists) {
             throw new NotFoundHttpException('Usuário não encontrado.');
         }
+
+        $this->merge([
+            'email' => $this->filled('email')
+                ? mb_strtolower(trim((string) $this->input('email')))
+                : $this->input('email'),
+        ]);
     }
 
     /**

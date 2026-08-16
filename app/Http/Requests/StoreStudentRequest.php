@@ -35,7 +35,7 @@ class StoreStudentRequest extends FormRequest
             'cpf' => [
                 'nullable',
                 'string',
-                'regex:/^(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$/',
+                'digits:11',
                 Rule::unique('students', 'cpf'),
             ],
             'address' => ['nullable', 'string', 'max:255'],
@@ -46,7 +46,7 @@ class StoreStudentRequest extends FormRequest
                 'required',
                 'string',
                 'distinct:strict',
-                'regex:/^(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$/',
+                'digits:11',
             ],
             'guardians.*.phone' => ['nullable', 'string', 'max:20'],
             'guardians.*.email' => ['nullable', 'email', 'max:255'],
@@ -54,6 +54,40 @@ class StoreStudentRequest extends FormRequest
             'guardians.*.relationship' => ['required', 'string', 'max:255'],
             'guardians.*.is_primary' => ['required', 'boolean'],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $guardians = $this->input('guardians', []);
+
+        if (is_array($guardians)) {
+            $guardians = collect($guardians)->map(function ($guardian) {
+                if (! is_array($guardian)) {
+                    return $guardian;
+                }
+
+                if (! empty($guardian['cpf'])) {
+                    $guardian['cpf'] = preg_replace('/\D/', '', (string) $guardian['cpf']);
+                }
+
+                if (! empty($guardian['email'])) {
+                    $guardian['email'] = mb_strtolower(trim((string) $guardian['email']));
+                }
+
+                return $guardian;
+            })
+                ->all();
+        }
+
+        $this->merge([
+            'cpf' => $this->filled('cpf')
+                ? preg_replace('/\D/', '', (string) $this->input('cpf'))
+                : $this->input('cpf'),
+            'guardians' => $guardians,
+        ]);
     }
 
     /**
@@ -91,14 +125,14 @@ class StoreStudentRequest extends FormRequest
             'user_id.unique' => 'Este usuário já possui um cadastro de aluno.',
             'registration_number.unique' => 'Esta matrícula já está cadastrada.',
             'birth_date.before' => 'A data de nascimento deve ser anterior à data atual.',
-            'cpf.regex' => 'O CPF deve conter 11 dígitos ou estar no formato 000.000.000-00.',
+            'cpf.digits' => 'O CPF deve conter exatamente 11 dígitos.',
             'cpf.unique' => 'Este CPF já está cadastrado.',
             'guardians.required' => 'Informe pelo menos um responsável.',
             'guardians.min' => 'Informe pelo menos um responsável.',
             'guardians.*.name.required' => 'Informe o nome do responsável.',
             'guardians.*.cpf.required' => 'Informe o CPF do responsável.',
             'guardians.*.cpf.distinct' => 'Não repita o mesmo responsável.',
-            'guardians.*.cpf.regex' => 'O CPF do responsável deve conter 11 dígitos ou estar no formato 000.000.000-00.',
+            'guardians.*.cpf.digits' => 'O CPF do responsável deve conter exatamente 11 dígitos.',
             'guardians.*.relationship.required' => 'Informe o parentesco do responsável.',
         ];
     }

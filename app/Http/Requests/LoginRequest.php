@@ -16,6 +16,18 @@ class LoginRequest extends FormRequest
     }
 
     /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'email' => $this->filled('email')
+                ? mb_strtolower(trim((string) $this->input('email')))
+                : $this->input('email'),
+        ]);
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array<mixed>|string>
@@ -50,7 +62,7 @@ class LoginRequest extends FormRequest
             ],
             'password' => [
                 'example' => 'Ab123456#@',
-            ]
+            ],
         ];
     }
 }
