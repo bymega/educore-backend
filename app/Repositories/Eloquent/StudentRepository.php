@@ -12,7 +12,7 @@ class StudentRepository implements StudentRepositoryInterface
 
     public function getAll(array $data): LengthAwarePaginator
     {
-        $query = $this->entity->newQuery()->with('user');
+        $query = $this->entity->newQuery()->with(['user', 'guardians']);
 
         if (! empty($data['name'])) {
             $name = mb_strtoupper($data['name']);

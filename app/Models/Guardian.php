@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Teacher extends Model
+class Guardian extends Model
 {
-    use HasUuids, HasFactory, SoftDeletes;
+    use HasFactory, HasUuids, SoftDeletes;
 
     protected $fillable = [
-        'user_id',
-        'registration_number',
+        'name',
         'cpf',
-        'specialization',
+        'phone',
+        'email',
         'status',
     ];
 
@@ -25,8 +25,10 @@ class Teacher extends Model
         return ['uuid'];
     }
 
-    public function user(): BelongsTo
+    public function students(): BelongsToMany
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(Student::class)
+            ->withPivot(['relationship', 'is_primary'])
+            ->withTimestamps();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Student;
+use App\Rules\UserHasRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -36,6 +37,7 @@ class StudentRequest extends FormRequest
                 'required',
                 'integer',
                 Rule::exists('users', 'id')->whereNull('deleted_at'),
+                new UserHasRole('aluno'),
                 Rule::unique('students', 'user_id')->ignore($studentId),
             ],
             'registration_number' => [
@@ -49,12 +51,24 @@ class StudentRequest extends FormRequest
             'cpf' => [
                 'nullable',
                 'string',
-                'regex:/^(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$/',
+                'digits:11',
                 Rule::unique('students', 'cpf')->ignore($studentId),
             ],
             'address' => ['nullable', 'string', 'max:255'],
             'status' => ['sometimes', Rule::in(['active', 'inactive', 'blocked'])],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'cpf' => $this->filled('cpf')
+                ? preg_replace('/\D/', '', (string) $this->input('cpf'))
+                : $this->input('cpf'),
+        ]);
     }
 
     /**
@@ -83,7 +97,7 @@ class StudentRequest extends FormRequest
             'user_id.unique' => 'Este usuário já possui um cadastro de aluno.',
             'registration_number.unique' => 'Esta matrícula já está cadastrada.',
             'birth_date.before' => 'A data de nascimento deve ser anterior à data atual.',
-            'cpf.regex' => 'O CPF deve conter 11 dígitos ou estar no formato 000.000.000-00.',
+            'cpf.digits' => 'O CPF deve conter exatamente 11 dígitos.',
             'cpf.unique' => 'Este CPF já está cadastrado.',
         ];
     }
