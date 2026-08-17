@@ -12,6 +12,13 @@ class GuardianController extends Controller
 {
     public function __construct(private readonly GuardianService $service) {}
 
+    /**
+     * Listar Responsáveis
+     *
+     * Retorna a lista paginada de responsáveis.
+     *
+     * @group Responsáveis
+     */
     public function index(GuardianSearchRequest $request): GuardianCollection
     {
         $guardians = $this->service->getAll($request->validated());
@@ -19,6 +26,11 @@ class GuardianController extends Controller
         return new GuardianCollection($guardians);
     }
 
+    /**
+     * Atualizar Responsáveis
+     *
+     * @group Responsáveis
+     */
     public function update(GuardianRequest $request, string $uuid): JsonResponse
     {
         $this->service->update($uuid, $request->validated());
@@ -28,6 +40,11 @@ class GuardianController extends Controller
         ]);
     }
 
+    /**
+     * Deletar Responsáveis
+     *
+     * @group Responsáveis
+     */
     public function delete(string $uuid)
     {
         $this->service->delete($uuid);
@@ -37,6 +54,11 @@ class GuardianController extends Controller
         ]);
     }
 
+    /**
+     * Restaurar Responsáveis
+     *
+     * @group Responsáveis
+     */
     public function restore(string $uuid)
     {
         $this->service->restore($uuid);
