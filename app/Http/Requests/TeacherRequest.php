@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Teacher;
+use App\Rules\UserHasRole;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -42,6 +43,7 @@ class TeacherRequest extends FormRequest
                 'required',
                 'integer',
                 Rule::exists('users', 'id')->whereNull('deleted_at'),
+                new UserHasRole('professor'),
                 Rule::unique('teachers', 'user_id')->ignore($teacherId),
             ],
             'registration_number' => [

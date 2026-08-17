@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Student;
+use App\Rules\UserHasRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -36,6 +37,7 @@ class StudentRequest extends FormRequest
                 'required',
                 'integer',
                 Rule::exists('users', 'id')->whereNull('deleted_at'),
+                new UserHasRole('aluno'),
                 Rule::unique('students', 'user_id')->ignore($studentId),
             ],
             'registration_number' => [
