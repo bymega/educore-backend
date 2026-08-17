@@ -70,11 +70,11 @@ test('authenticated user can access lifetime endpoint', function () {
     $this->withToken($token)
         ->getJson('/api/auth/life')
         ->assertOk()
-        ->assertJsonPath('data.uuid', $user->uuid)
+        ->assertJsonPath('data.id', $user->uuid)
         ->assertJsonPath('data.email', $user->email)
         ->assertJsonStructure([
             'data' => [
-                'uuid',
+                'id',
                 'name',
                 'email',
                 'roles',

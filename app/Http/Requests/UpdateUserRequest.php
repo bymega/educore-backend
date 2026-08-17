@@ -21,9 +21,15 @@ class UpdateUserRequest extends FormRequest
             ->where('uuid', $uuid)
             ->exists();
 
-        if (!$exists) {
+        if (! $exists) {
             throw new NotFoundHttpException('Usuário não encontrado.');
         }
+
+        $this->merge([
+            'email' => $this->filled('email')
+                ? mb_strtolower(trim((string) $this->input('email')))
+                : $this->input('email'),
+        ]);
     }
 
     /**
@@ -64,6 +70,36 @@ class UpdateUserRequest extends FormRequest
                 'string',
                 Rule::exists('roles', 'name')
                     ->where('guard_name', 'web'),
+            ],
+        ];
+    }
+
+    /**
+     * Get the body parameter descriptions and examples for the API documentation.
+     */
+    public function bodyParameters(): array
+    {
+        return [
+            'name' => [
+                'example' => 'Ricardo abc',
+            ],
+            'email' => [
+                'example' => 'ricardoS@educore.com',
+            ],
+            'phone' => [
+                'example' => '11999999999',
+            ],
+            'password' => [
+                'example' => 'adm@1234',
+            ],
+            'password_confirmation' => [
+                'example' => 'adm@1234',
+            ],
+            'status' => [
+                'example' => 'active',
+            ],
+            'role' => [
+                'example' => 'professor',
             ],
         ];
     }
