@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('end_date');
             $table->enum('status', ['planned', 'active', 'completed', 'cancelled'])->default('planned');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
