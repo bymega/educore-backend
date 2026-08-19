@@ -12,6 +12,13 @@ class SchoolYearController extends Controller
 {
     public function __construct(private readonly SchoolYearService $service) {}
 
+    /**
+     * Listar Anos Letivos
+     *
+     * Retorna a lista paginada de anos letivos.
+     *
+     * @group Anos Letivos
+     */
     public function index(SchoolYearSearchRequest $request): SchoolYearCollection
     {
         $schoolYears = $this->service->getAll($request->validated());
@@ -19,6 +26,11 @@ class SchoolYearController extends Controller
         return new SchoolYearCollection($schoolYears);
     }
 
+    /**
+     * Cadastrar Anos Letivos
+     *
+     * @group Anos Letivos
+     */
     public function store(SchoolYearRequest $request): JsonResponse
     {
         $this->service->create($request->validated());
@@ -28,6 +40,11 @@ class SchoolYearController extends Controller
         ], 201);
     }
 
+    /**
+     * Atualizar Anos Letivos
+     *
+     * @group Anos Letivos
+     */
     public function update(SchoolYearRequest $request, string $uuid): JsonResponse
     {
         $this->service->update($uuid, $request->validated());
@@ -37,6 +54,11 @@ class SchoolYearController extends Controller
         ]);
     }
 
+    /**
+     * Deletar Anos Letivos
+     *
+     * @group Anos Letivos
+     */
     public function delete(string $uuid)
     {
         $this->service->delete($uuid);
@@ -46,6 +68,11 @@ class SchoolYearController extends Controller
         ]);
     }
 
+    /**
+     * Restaurar Anos Letivos
+     *
+     * @group Anos Letivos
+     */
     public function restore(string $uuid)
     {
         $this->service->restore($uuid);

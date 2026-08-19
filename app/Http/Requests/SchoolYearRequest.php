@@ -38,7 +38,7 @@ class SchoolYearRequest extends FormRequest
     {
         return [
             'name' => [
-                'example' => 'Ricardo',
+                'example' => 'Ano Letivo 2026',
             ],
             'start_date' => [
                 'example' => '2026-02-02',
