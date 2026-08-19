@@ -426,19 +426,19 @@ Consulte o console das ferramentas de desenvolvedor para obter informações de 
     \"user_id\": 16,
     \"registration_number\": \"n\",
     \"birth_date\": \"2022-09-13\",
-    \"gender\": \"male\",
+    \"gender\": \"other\",
     \"cpf\": \"82256977571\",
     \"address\": \"g\",
-    \"status\": \"blocked\",
+    \"status\": \"inactive\",
     \"guardians\": [
         {
             \"name\": \"b\",
             \"cpf\": \"82256977571\",
             \"phone\": \"gzmiyvdljnikhway\",
             \"email\": \"gilbert32@example.com\",
-            \"status\": \"active\",
+            \"status\": \"blocked\",
             \"relationship\": \"w\",
-            \"is_primary\": true
+            \"is_primary\": false
         }
     ]
 }"
@@ -460,19 +460,19 @@ let body = {
     "user_id": 16,
     "registration_number": "n",
     "birth_date": "2022-09-13",
-    "gender": "male",
+    "gender": "other",
     "cpf": "82256977571",
     "address": "g",
-    "status": "blocked",
+    "status": "inactive",
     "guardians": [
         {
             "name": "b",
             "cpf": "82256977571",
             "phone": "gzmiyvdljnikhway",
             "email": "gilbert32@example.com",
-            "status": "active",
+            "status": "blocked",
             "relationship": "w",
-            "is_primary": true
+            "is_primary": false
         }
     ]
 };
@@ -607,10 +607,10 @@ Consulte o console das ferramentas de desenvolvedor para obter informações de 
 <i>opcional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"                name="gender"  data-endpoint="POSTapi-students"
-               value="male"
+               value="other"
                data-component="body">
     <br>
-<p>Exemplo: <code>male</code></p>
+<p>Exemplo: <code>other</code></p>
 Deve ser um dos seguintes valores:
 <ul style="list-style-type: square;"><li><code>male</code></li> <li><code>female</code></li> <li><code>other</code></li></ul>
         </div>
@@ -642,10 +642,10 @@ Deve ser um dos seguintes valores:
 <i>opcional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"                name="status"  data-endpoint="POSTapi-students"
-               value="blocked"
+               value="inactive"
                data-component="body">
     <br>
-<p>Exemplo: <code>blocked</code></p>
+<p>Exemplo: <code>inactive</code></p>
 Deve ser um dos seguintes valores:
 <ul style="list-style-type: square;"><li><code>active</code></li> <li><code>inactive</code></li> <li><code>blocked</code></li></ul>
         </div>
@@ -709,10 +709,10 @@ Deve ser um dos seguintes valores:
 <i>opcional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"                name="guardians.0.status"  data-endpoint="POSTapi-students"
-               value="active"
+               value="blocked"
                data-component="body">
     <br>
-<p>Exemplo: <code>active</code></p>
+<p>Exemplo: <code>blocked</code></p>
 Deve ser um dos seguintes valores:
 <ul style="list-style-type: square;"><li><code>active</code></li> <li><code>inactive</code></li> <li><code>blocked</code></li></ul>
                     </div>
@@ -743,7 +743,7 @@ Deve ser um dos seguintes valores:
             <code>false</code>
         </label>
     <br>
-<p>Exemplo: <code>true</code></p>
+<p>Exemplo: <code>false</code></p>
                     </div>
                                     </details>
         </div>
@@ -1460,7 +1460,7 @@ Consulte o console das ferramentas de desenvolvedor para obter informações de 
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"Ricardo\",
+    \"name\": \"Ano Letivo 2026\",
     \"start_date\": \"2026-02-02\",
     \"end_date\": \"2026-12-18\",
     \"status\": \"planned\"
@@ -1480,7 +1480,7 @@ const headers = {
 };
 
 let body = {
-    "name": "Ricardo",
+    "name": "Ano Letivo 2026",
     "start_date": "2026-02-02",
     "end_date": "2026-12-18",
     "status": "planned"
@@ -1583,10 +1583,10 @@ Consulte o console das ferramentas de desenvolvedor para obter informações de 
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"                name="name"  data-endpoint="POSTapi-school-years"
-               value="Ricardo"
+               value="Ano Letivo 2026"
                data-component="body">
     <br>
-<p>Não pode ter mais de 255 caracteres. Exemplo: <code>Ricardo</code></p>
+<p>Não pode ter mais de 255 caracteres. Exemplo: <code>Ano Letivo 2026</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>start_date</code></b>&nbsp;&nbsp;
@@ -1644,7 +1644,7 @@ Deve ser um dos seguintes valores:
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"Ricardo\",
+    \"name\": \"Ano Letivo 2026\",
     \"start_date\": \"2026-02-02\",
     \"end_date\": \"2026-12-18\",
     \"status\": \"planned\"
@@ -1664,7 +1664,7 @@ const headers = {
 };
 
 let body = {
-    "name": "Ricardo",
+    "name": "Ano Letivo 2026",
     "start_date": "2026-02-02",
     "end_date": "2026-12-18",
     "status": "planned"
@@ -1779,10 +1779,10 @@ Consulte o console das ferramentas de desenvolvedor para obter informações de 
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"                name="name"  data-endpoint="PUTapi-school-years--uuid-"
-               value="Ricardo"
+               value="Ano Letivo 2026"
                data-component="body">
     <br>
-<p>Não pode ter mais de 255 caracteres. Exemplo: <code>Ricardo</code></p>
+<p>Não pode ter mais de 255 caracteres. Exemplo: <code>Ano Letivo 2026</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>start_date</code></b>&nbsp;&nbsp;
