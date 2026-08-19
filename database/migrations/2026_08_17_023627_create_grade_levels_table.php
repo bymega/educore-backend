@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('sort_order');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

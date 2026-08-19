@@ -23,6 +23,7 @@ return new class extends Migration
             $table->unsignedSmallInteger('capacity')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
+            $table->softDeletes();
             $table->unique(['school_year_id', 'code']);
         });
     }

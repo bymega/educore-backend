@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('end_date')->nullable();
             $table->boolean('is_primary')->default(false);
             $table->timestamps();
+            $table->softDeletes();
             $table->unique(
                 ['class_subject_id', 'teacher_id', 'start_date'],
                 'class_subject_teacher_start_unique'

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedSmallInteger('workload')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
