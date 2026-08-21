@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GuardianController;
+use App\Http\Controllers\SchoolYearController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\TermController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -47,5 +49,21 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/{uuid}', [GuardianController::class, 'update'])->middleware('permission:guardians.update');
         Route::delete('/{uuid}', [GuardianController::class, 'delete'])->middleware('permission:guardians.delete');
         Route::put('/{uuid}/restore', [GuardianController::class, 'restore'])->middleware('permission:guardians.restore');
+    });
+
+    Route::prefix('school-years')->group(function () {
+        Route::get('/', [SchoolYearController::class, 'index'])->middleware('permission:schoolyears.view');
+        Route::post('/', [SchoolYearController::class, 'store'])->middleware('permission:schoolyears.create');
+        Route::put('/{uuid}', [SchoolYearController::class, 'update'])->middleware('permission:schoolyears.update');
+        Route::delete('/{uuid}', [SchoolYearController::class, 'delete'])->middleware('permission:schoolyears.delete');
+        Route::put('/{uuid}/restore', [SchoolYearController::class, 'restore'])->middleware('permission:schoolyears.restore');
+    });
+
+    Route::prefix('terms')->group(function () {
+        Route::get('/', [TermController::class, 'index'])->middleware('permission:terms.view');
+        Route::post('/', [TermController::class, 'store'])->middleware('permission:terms.create');
+        Route::put('/{uuid}', [TermController::class, 'update'])->middleware('permission:terms.update');
+        Route::delete('/{uuid}', [TermController::class, 'delete'])->middleware('permission:terms.delete');
+        Route::put('/{uuid}/restore', [TermController::class, 'restore'])->middleware('permission:terms.restore');
     });
 });

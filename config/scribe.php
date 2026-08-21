@@ -3,6 +3,7 @@
 use Knuckles\Scribe\Config\AuthIn;
 use Knuckles\Scribe\Config\Defaults;
 use Knuckles\Scribe\Extracting\Strategies;
+use App\Scribe\PortugueseBodyParametersFromFormRequest;
 
 use function Knuckles\Scribe\Config\configureStrategy;
 use function Knuckles\Scribe\Config\removeStrategies;
@@ -214,7 +215,10 @@ return [
             ...Defaults::QUERY_PARAMETERS_STRATEGIES,
         ],
         'bodyParameters' => [
-            ...Defaults::BODY_PARAMETERS_STRATEGIES,
+            PortugueseBodyParametersFromFormRequest::class,
+            ...removeStrategies(Defaults::BODY_PARAMETERS_STRATEGIES, [
+                Strategies\BodyParameters\GetFromFormRequest::class,
+            ]),
         ],
         'responses' => configureStrategy(
             Defaults::RESPONSES_STRATEGIES,
