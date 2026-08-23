@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EducationLevelController;
 use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\SchoolYearController;
 use App\Http\Controllers\StudentController;
@@ -65,5 +66,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/{uuid}', [TermController::class, 'update'])->middleware('permission:terms.update');
         Route::delete('/{uuid}', [TermController::class, 'delete'])->middleware('permission:terms.delete');
         Route::put('/{uuid}/restore', [TermController::class, 'restore'])->middleware('permission:terms.restore');
+    });
+
+    Route::prefix('education-levels')->group(function () {
+        Route::get('/', [EducationLevelController::class, 'index'])->middleware('permission:education-levels.view');
     });
 });
