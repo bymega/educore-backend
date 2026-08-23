@@ -88,6 +88,16 @@
                             </li>
                                                                         </ul>
                             </ul>
+                    <ul id="tocify-header-anos-escolares" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="anos-escolares">
+                    <a href="#anos-escolares">Anos Escolares</a>
+                </li>
+                                    <ul id="tocify-subheader-anos-escolares" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="anos-escolares-GETapi-grade-levels">
+                                <a href="#anos-escolares-GETapi-grade-levels">Listar Anos Escolares</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
                     <ul id="tocify-header-anos-letivos" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="anos-letivos">
                     <a href="#anos-letivos">Anos Letivos</a>
@@ -230,7 +240,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: August 22, 2026</li>
+        <li>Last updated: August 23, 2026</li>
     </ul>
 </div>
 
@@ -461,16 +471,16 @@ Consulte o console das ferramentas de desenvolvedor para obter informações de 
     \"gender\": \"male\",
     \"cpf\": \"82256977571\",
     \"address\": \"g\",
-    \"status\": \"blocked\",
+    \"status\": \"active\",
     \"guardians\": [
         {
             \"name\": \"b\",
             \"cpf\": \"82256977571\",
             \"phone\": \"gzmiyvdljnikhway\",
             \"email\": \"gilbert32@example.com\",
-            \"status\": \"inactive\",
+            \"status\": \"active\",
             \"relationship\": \"w\",
-            \"is_primary\": true
+            \"is_primary\": false
         }
     ]
 }"
@@ -495,16 +505,16 @@ let body = {
     "gender": "male",
     "cpf": "82256977571",
     "address": "g",
-    "status": "blocked",
+    "status": "active",
     "guardians": [
         {
             "name": "b",
             "cpf": "82256977571",
             "phone": "gzmiyvdljnikhway",
             "email": "gilbert32@example.com",
-            "status": "inactive",
+            "status": "active",
             "relationship": "w",
-            "is_primary": true
+            "is_primary": false
         }
     ]
 };
@@ -674,10 +684,10 @@ Deve ser um dos seguintes valores:
 <i>opcional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"                name="status"  data-endpoint="POSTapi-students"
-               value="blocked"
+               value="active"
                data-component="body">
     <br>
-<p>Exemplo: <code>blocked</code></p>
+<p>Exemplo: <code>active</code></p>
 Deve ser um dos seguintes valores:
 <ul style="list-style-type: square;"><li><code>active</code></li> <li><code>inactive</code></li> <li><code>blocked</code></li></ul>
         </div>
@@ -741,10 +751,10 @@ Deve ser um dos seguintes valores:
 <i>opcional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"                name="guardians.0.status"  data-endpoint="POSTapi-students"
-               value="inactive"
+               value="active"
                data-component="body">
     <br>
-<p>Exemplo: <code>inactive</code></p>
+<p>Exemplo: <code>active</code></p>
 Deve ser um dos seguintes valores:
 <ul style="list-style-type: square;"><li><code>active</code></li> <li><code>inactive</code></li> <li><code>blocked</code></li></ul>
                     </div>
@@ -775,7 +785,7 @@ Deve ser um dos seguintes valores:
             <code>false</code>
         </label>
     <br>
-<p>Exemplo: <code>true</code></p>
+<p>Exemplo: <code>false</code></p>
                     </div>
                                     </details>
         </div>
@@ -1287,6 +1297,149 @@ Consulte o console das ferramentas de desenvolvedor para obter informações de 
 <p>Exemplo: <code>6ff8f7f6-1eb3-3525-be4a-3932c805afed</code></p>
             </div>
                     </form>
+
+                <h1 id="anos-escolares">Anos Escolares</h1>
+
+    
+
+                                <h2 id="anos-escolares-GETapi-grade-levels">Listar Anos Escolares</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Retorna todos os níveis de anos escolares cadastrados, ordenados pela ordem de exibição.</p>
+
+<span id="example-requests-GETapi-grade-levels">
+<blockquote>Exemplo de requisição:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/grade-levels" \
+    --header "Authorization: Bearer SEU_TOKEN" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/grade-levels"
+);
+
+const headers = {
+    "Authorization": "Bearer SEU_TOKEN",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-grade-levels">
+            <blockquote>
+            <p>Exemplo de resposta (401):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-grade-levels" hidden>
+    <blockquote>Resposta recebida<span
+                id="execution-response-status-GETapi-grade-levels"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-grade-levels"
+      data-empty-response-text="<Resposta vazia>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-grade-levels" hidden>
+    <blockquote>A requisição falhou com erro:</blockquote>
+    <pre><code id="execution-error-message-GETapi-grade-levels">
+
+Dica: verifique se você está conectado corretamente à rede.
+Se você mantém esta API, verifique se ela está em execução e se o CORS está habilitado.
+Consulte o console das ferramentas de desenvolvedor para obter informações de depuração.</code></pre>
+</span>
+<form id="form-GETapi-grade-levels" data-method="GET"
+      data-path="api/grade-levels"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-grade-levels', this);">
+    <h3>
+        Requisição&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-grade-levels"
+                    onclick="tryItOut('GETapi-grade-levels');">Testar ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-grade-levels"
+                    onclick="cancelTryOut('GETapi-grade-levels');" hidden>Cancelar 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-grade-levels"
+                    data-initial-text="Enviar requisição 💥"
+                    data-loading-text="⏱ Enviando..."
+                    hidden>Enviar requisição 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/grade-levels</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Cabeçalhos</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Authorization" class="auth-value" data-endpoint="GETapi-grade-levels"
+               value="Bearer SEU_TOKEN"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>Bearer SEU_TOKEN</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Content-Type"  data-endpoint="GETapi-grade-levels"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Accept"  data-endpoint="GETapi-grade-levels"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                        </form>
 
                 <h1 id="anos-letivos">Anos Letivos</h1>
 
