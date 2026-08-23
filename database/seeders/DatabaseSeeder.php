@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             StudentSeeder::class,
             GuardianSeeder::class,
             TermSeeder::class,
+            EducationLevelSeeder::class,
         ]);
     }
 }
