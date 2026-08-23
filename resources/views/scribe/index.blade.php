@@ -126,6 +126,16 @@
                             </li>
                                                                         </ul>
                             </ul>
+                    <ul id="tocify-header-niveis-de-ensino" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="niveis-de-ensino">
+                    <a href="#niveis-de-ensino">Níveis de Ensino</a>
+                </li>
+                                    <ul id="tocify-subheader-niveis-de-ensino" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="niveis-de-ensino-GETapi-education-levels">
+                                <a href="#niveis-de-ensino-GETapi-education-levels">Listar Níveis de Ensino</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
                     <ul id="tocify-header-periodos" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="periodos">
                     <a href="#periodos">Períodos</a>
@@ -220,7 +230,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: August 21, 2026</li>
+        <li>Last updated: August 22, 2026</li>
     </ul>
 </div>
 
@@ -447,20 +457,20 @@ Consulte o console das ferramentas de desenvolvedor para obter informações de 
     --data "{
     \"user_id\": 16,
     \"registration_number\": \"n\",
-    \"birth_date\": \"2022-09-14\",
+    \"birth_date\": \"2022-09-16\",
     \"gender\": \"male\",
     \"cpf\": \"82256977571\",
     \"address\": \"g\",
-    \"status\": \"active\",
+    \"status\": \"blocked\",
     \"guardians\": [
         {
             \"name\": \"b\",
             \"cpf\": \"82256977571\",
             \"phone\": \"gzmiyvdljnikhway\",
             \"email\": \"gilbert32@example.com\",
-            \"status\": \"active\",
+            \"status\": \"inactive\",
             \"relationship\": \"w\",
-            \"is_primary\": false
+            \"is_primary\": true
         }
     ]
 }"
@@ -481,20 +491,20 @@ const headers = {
 let body = {
     "user_id": 16,
     "registration_number": "n",
-    "birth_date": "2022-09-14",
+    "birth_date": "2022-09-16",
     "gender": "male",
     "cpf": "82256977571",
     "address": "g",
-    "status": "active",
+    "status": "blocked",
     "guardians": [
         {
             "name": "b",
             "cpf": "82256977571",
             "phone": "gzmiyvdljnikhway",
             "email": "gilbert32@example.com",
-            "status": "active",
+            "status": "inactive",
             "relationship": "w",
-            "is_primary": false
+            "is_primary": true
         }
     ]
 };
@@ -618,10 +628,10 @@ Consulte o console das ferramentas de desenvolvedor para obter informações de 
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"                name="birth_date"  data-endpoint="POSTapi-students"
-               value="2022-09-14"
+               value="2022-09-16"
                data-component="body">
     <br>
-<p>Deve ser uma data válida. Deve ser uma data anterior a <code>today</code>. Exemplo: <code>2022-09-14</code></p>
+<p>Deve ser uma data válida. Deve ser uma data anterior a <code>today</code>. Exemplo: <code>2022-09-16</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>gender</code></b>&nbsp;&nbsp;
@@ -664,10 +674,10 @@ Deve ser um dos seguintes valores:
 <i>opcional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"                name="status"  data-endpoint="POSTapi-students"
-               value="active"
+               value="blocked"
                data-component="body">
     <br>
-<p>Exemplo: <code>active</code></p>
+<p>Exemplo: <code>blocked</code></p>
 Deve ser um dos seguintes valores:
 <ul style="list-style-type: square;"><li><code>active</code></li> <li><code>inactive</code></li> <li><code>blocked</code></li></ul>
         </div>
@@ -731,10 +741,10 @@ Deve ser um dos seguintes valores:
 <i>opcional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"                name="guardians.0.status"  data-endpoint="POSTapi-students"
-               value="active"
+               value="inactive"
                data-component="body">
     <br>
-<p>Exemplo: <code>active</code></p>
+<p>Exemplo: <code>inactive</code></p>
 Deve ser um dos seguintes valores:
 <ul style="list-style-type: square;"><li><code>active</code></li> <li><code>inactive</code></li> <li><code>blocked</code></li></ul>
                     </div>
@@ -765,7 +775,7 @@ Deve ser um dos seguintes valores:
             <code>false</code>
         </label>
     <br>
-<p>Exemplo: <code>false</code></p>
+<p>Exemplo: <code>true</code></p>
                     </div>
                                     </details>
         </div>
@@ -2514,6 +2524,149 @@ Consulte o console das ferramentas de desenvolvedor para obter informações de 
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"                name="Accept"  data-endpoint="POSTapi-auth-logout"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                <h1 id="niveis-de-ensino">Níveis de Ensino</h1>
+
+    
+
+                                <h2 id="niveis-de-ensino-GETapi-education-levels">Listar Níveis de Ensino</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Retorna todos os níveis de ensino cadastrados, ordenados pela ordem de exibição.</p>
+
+<span id="example-requests-GETapi-education-levels">
+<blockquote>Exemplo de requisição:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/education-levels" \
+    --header "Authorization: Bearer SEU_TOKEN" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/education-levels"
+);
+
+const headers = {
+    "Authorization": "Bearer SEU_TOKEN",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-education-levels">
+            <blockquote>
+            <p>Exemplo de resposta (401):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-education-levels" hidden>
+    <blockquote>Resposta recebida<span
+                id="execution-response-status-GETapi-education-levels"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-education-levels"
+      data-empty-response-text="<Resposta vazia>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-education-levels" hidden>
+    <blockquote>A requisição falhou com erro:</blockquote>
+    <pre><code id="execution-error-message-GETapi-education-levels">
+
+Dica: verifique se você está conectado corretamente à rede.
+Se você mantém esta API, verifique se ela está em execução e se o CORS está habilitado.
+Consulte o console das ferramentas de desenvolvedor para obter informações de depuração.</code></pre>
+</span>
+<form id="form-GETapi-education-levels" data-method="GET"
+      data-path="api/education-levels"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-education-levels', this);">
+    <h3>
+        Requisição&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-education-levels"
+                    onclick="tryItOut('GETapi-education-levels');">Testar ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-education-levels"
+                    onclick="cancelTryOut('GETapi-education-levels');" hidden>Cancelar 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-education-levels"
+                    data-initial-text="Enviar requisição 💥"
+                    data-loading-text="⏱ Enviando..."
+                    hidden>Enviar requisição 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/education-levels</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Cabeçalhos</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Authorization" class="auth-value" data-endpoint="GETapi-education-levels"
+               value="Bearer SEU_TOKEN"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>Bearer SEU_TOKEN</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Content-Type"  data-endpoint="GETapi-education-levels"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Accept"  data-endpoint="GETapi-education-levels"
                value="application/json"
                data-component="header">
     <br>
