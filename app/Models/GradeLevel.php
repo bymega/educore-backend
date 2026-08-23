@@ -5,18 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class EducationLevel extends Model
+class GradeLevel extends Model
 {
-    use HasUuids, HasFactory, SoftDeletes;
+    use HasFactory, HasUuids, SoftDeletes;
 
     protected $fillable = [
+        'education_level_id',
         'name',
         'code',
         'sort_order',
-        'status'
+        'status',
     ];
 
     public function uniqueIds(): array
@@ -24,8 +25,8 @@ class EducationLevel extends Model
         return ['uuid'];
     }
 
-    public function gradeLevels(): HasMany
+    public function educationLevel(): BelongsTo
     {
-        return $this->hasMany(GradeLevel::class);
+        return $this->belongsTo(EducationLevel::class);
     }
 }

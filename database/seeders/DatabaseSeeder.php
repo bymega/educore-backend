@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             GuardianSeeder::class,
             TermSeeder::class,
             EducationLevelSeeder::class,
+            GradeLevelSeeder::class,
         ]);
     }
 }

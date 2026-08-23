@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EducationLevelController;
+use App\Http\Controllers\GradeLevelController;
 use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\SchoolYearController;
 use App\Http\Controllers\StudentController;
@@ -70,5 +71,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('education-levels')->group(function () {
         Route::get('/', [EducationLevelController::class, 'index'])->middleware('permission:education-levels.view');
+    });
+
+    Route::prefix('grade-levels')->group(function () {
+        Route::get('/', [GradeLevelController::class, 'index'])->middleware('permission:grade-levels.view');
     });
 });
