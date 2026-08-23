@@ -16,8 +16,7 @@ return new class extends Migration
             $table->uuid('uuid')->unique();
             $table->foreignId('school_class_id')->constrained('school_classes')->restrictOnDelete();
             $table->foreignId('subject_id')->constrained('subjects')->restrictOnDelete();
-            $table->unsignedTinyInteger('weekly_classes')->nullable();
-            $table->unsignedSmallInteger('workload')->nullable();
+            $table->unsignedTinyInteger('weekly_classes');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
             $table->softDeletes();
