@@ -27,7 +27,9 @@ class AppServiceProvider extends ServiceProvider
         \App\Repositories\Interface\GradeLevelRepositoryInterface::class =>
         \App\Repositories\Eloquent\GradeLevelRepository::class,
         \App\Repositories\Interface\SubjectRepositoryInterface::class =>
-        \App\Repositories\Eloquent\SubjectRepository::class
+        \App\Repositories\Eloquent\SubjectRepository::class,
+        \App\Repositories\Interface\SchoolClassRepositoryInterface::class =>
+        \App\Repositories\Eloquent\SchoolClassRepository::class,
     ];
 
 
