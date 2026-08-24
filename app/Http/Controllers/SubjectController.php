@@ -12,6 +12,11 @@ class SubjectController extends Controller
 {
     public function __construct(private readonly SubjectService $service) {}
 
+    /**
+     * Listagem de Disciplinas
+     *
+     * @group Disciplinas
+     */
     public function index(SubjectSearchRequest $request): SubjectCollection
     {
         $subjects = $this->service->getAll($request->validated());
