@@ -17,11 +17,14 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolePermissionSeeder::class,
             UserSeeder::class,
+            TeacherSeeder::class,
             StudentSeeder::class,
             GuardianSeeder::class,
-            TermSeeder::class,
             EducationLevelSeeder::class,
             GradeLevelSeeder::class,
+            TermSeeder::class,
+            SubjectSeeder::class,
+            SchoolClassSeeder::class,
         ]);
     }
 }
