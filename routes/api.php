@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EducationLevelController;
 use App\Http\Controllers\GradeLevelController;
 use App\Http\Controllers\GuardianController;
+use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\SchoolYearController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
@@ -82,5 +83,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', [SubjectController::class, 'index'])->middleware('permission:subjects.view');
         Route::post('/', [SubjectController::class, 'store'])->middleware('permission:subjects.create');
         Route::put('/{uuid}', [SubjectController::class, 'update'])->middleware('permission:subjects.update');
+    });
+
+    Route::prefix('school-classes')->group(function () {
+        Route::get('/', [SchoolClassController::class, 'index'])->middleware('permission:school-classes.view');
+        Route::post('/', [SchoolClassController::class, 'store'])->middleware('permission:school-classes.create');
+        Route::put('/{uuid}', [SchoolClassController::class, 'update'])->middleware('permission:school-classes.update');
+        Route::delete('/{uuid}', [SchoolClassController::class, 'delete'])->middleware('permission:school-classes.delete');
+        Route::put('/{uuid}/restore', [SchoolClassController::class, 'restore'])->middleware('permission:school-classes.restore');
     });
 });
