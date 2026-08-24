@@ -10,6 +10,11 @@ class SubjectService
 
   public function __construct(private readonly SubjectRepositoryInterface $repository) {}
 
+  public function getAll(array $data)
+  {
+    return $this->repository->getAll($data);
+  }
+
   public function create(array $data)
   {
     return $this->repository->create($data);
