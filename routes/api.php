@@ -6,6 +6,7 @@ use App\Http\Controllers\GradeLevelController;
 use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\SchoolYearController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TermController;
 use App\Http\Controllers\UserController;
@@ -75,5 +76,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('grade-levels')->group(function () {
         Route::get('/', [GradeLevelController::class, 'index'])->middleware('permission:grade-levels.view');
+    });
+
+    Route::prefix('subjects')->group(function () {
+        Route::get('/', [SubjectController::class, 'index'])->middleware('permission:subjects.view');
+        Route::post('/', [SubjectController::class, 'store'])->middleware('permission:subjects.create');
+        Route::put('/{uuid}', [SubjectController::class, 'update'])->middleware('permission:subjects.update');
     });
 });
