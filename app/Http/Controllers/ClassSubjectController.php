@@ -15,7 +15,7 @@ class ClassSubjectController extends Controller
         $this->service->assign($classUuid, $request->validated());
 
         return response()->json([
-            'message' => 'Disciplina atribuída à turma com sucesso'
+            'message' => 'Disciplinas atribuída à turma com sucesso'
         ], 201);
     }
 }
