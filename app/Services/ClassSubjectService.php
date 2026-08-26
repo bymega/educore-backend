@@ -31,4 +31,37 @@ class ClassSubjectService
       }
     });
   }
+
+  public function update(string $classUuid, string $uuid, array $data): void
+  {
+    $classSubject = $this->repository->findByUuidAndClassUuid($uuid, $classUuid);
+
+    if (!$classSubject) {
+      throw new NotFoundHttpException('Disciplina da turma não encontrada');
+    }
+
+    $this->repository->update($classSubject, $data);
+  }
+
+  public function delete(string $classUuid, string $uuid): void
+  {
+    $classSubject = $this->repository->findByUuidAndClassUuid($uuid, $classUuid);
+
+    if (!$classSubject || $classSubject->trashed()) {
+      throw new NotFoundHttpException('Disciplina da turma não encontrada');
+    }
+
+    $this->repository->delete($classSubject);
+  }
+
+  public function restore(string $classUuid, string $uuid): void
+  {
+    $classSubject = $this->repository->findByUuidAndClassUuid($uuid, $classUuid);
+
+    if (!$classSubject) {
+      throw new NotFoundHttpException('Disciplina da turma não encontrada');
+    }
+
+    $this->repository->restore($classSubject);
+  }
 }
