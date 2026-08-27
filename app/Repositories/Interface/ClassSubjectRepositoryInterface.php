@@ -3,9 +3,12 @@
 namespace App\Repositories\Interface;
 
 use App\Models\ClassSubject;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 interface ClassSubjectRepositoryInterface
 {
+  public function getAll(string $classUuid, array $data): LengthAwarePaginator;
+
   public function assign(array $data): ClassSubject;
 
   public function findByUuidAndClassUuid(string $uuid, string $classUuid): ?ClassSubject;

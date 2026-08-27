@@ -14,6 +14,11 @@ class ClassSubjectService
     private readonly SchoolClassRepositoryInterface $schoolClassRepository
   ) {}
 
+  public function getAll(string $classUuid, array $data)
+  {
+    return $this->repository->getAll($classUuid, $data);
+  }
+
   public function assign(string $classUuid, array $data): void
   {
     $schoolClass = $this->schoolClassRepository->findByUuid($classUuid);
