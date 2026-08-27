@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassSubjectController;
+use App\Http\Controllers\ClassSubjectTeacherController;
+use App\Http\Controllers\ClassSubjectTeacherControlller;
 use App\Http\Controllers\EducationLevelController;
 use App\Http\Controllers\GradeLevelController;
 use App\Http\Controllers\GuardianController;
@@ -100,5 +102,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/{uuid}', [ClassSubjectController::class, 'update'])->middleware('permission:classes-subjects.update');
         Route::delete('/{uuid}', [ClassSubjectController::class, 'delete'])->middleware('permission:classes-subjects.delete');
         Route::put('/{uuid}/restore', [ClassSubjectController::class, 'restore'])->middleware('permission:classes-subjects.restore');
+    });
+
+    Route::prefix('class-subjects/{classSubjectUuid}/teachers')->group(function () {
+        Route::get('/', [ClassSubjectTeacherController::class, 'index'])->middleware('permission:subject-teachers.view');
+        Route::post('/', [ClassSubjectTeacherController::class, 'store'])->middleware('permission:subject-teachers.create');
+        Route::put('/{uuid}', [ClassSubjectTeacherController::class, 'update'])->middleware('permission:subject-teachers.update');
+        Route::delete('/{uuid}', [ClassSubjectTeacherController::class, 'delete'])->middleware('permission:subject-teachers.delete');
+        Route::put('/{uuid}/restore', [ClassSubjectTeacherController::class, 'restore'])->middleware('permission:subject-teachers.restore');
     });
 });
