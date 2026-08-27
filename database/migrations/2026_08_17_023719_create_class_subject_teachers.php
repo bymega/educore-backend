@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('teacher_id')->constrained('teachers')->restrictOnDelete();
             $table->date('start_date');
             $table->date('end_date')->nullable();
-            $table->boolean('is_primary')->default(false);
             $table->timestamps();
             $table->softDeletes();
             $table->unique(
