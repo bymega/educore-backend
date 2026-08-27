@@ -152,6 +152,28 @@
                             </li>
                                                                         </ul>
                             </ul>
+                    <ul id="tocify-header-disciplinas-da-turma" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="disciplinas-da-turma">
+                    <a href="#disciplinas-da-turma">Disciplinas da Turma</a>
+                </li>
+                                    <ul id="tocify-subheader-disciplinas-da-turma" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="disciplinas-da-turma-GETapi-school-classes--classUuid--subjects">
+                                <a href="#disciplinas-da-turma-GETapi-school-classes--classUuid--subjects">Listar Disciplinas da Turma</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="disciplinas-da-turma-POSTapi-school-classes--classUuid--subjects">
+                                <a href="#disciplinas-da-turma-POSTapi-school-classes--classUuid--subjects">Atribuir Disciplinas à Turma</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="disciplinas-da-turma-PUTapi-school-classes--classUuid--subjects--uuid-">
+                                <a href="#disciplinas-da-turma-PUTapi-school-classes--classUuid--subjects--uuid-">Atualizar Disciplinas da Turma</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="disciplinas-da-turma-DELETEapi-school-classes--classUuid--subjects--uuid-">
+                                <a href="#disciplinas-da-turma-DELETEapi-school-classes--classUuid--subjects--uuid-">Deletar Disciplinas da Turma</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="disciplinas-da-turma-PUTapi-school-classes--classUuid--subjects--uuid--restore">
+                                <a href="#disciplinas-da-turma-PUTapi-school-classes--classUuid--subjects--uuid--restore">Restaurar Disciplinas da Turma</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
                     <ul id="tocify-header-niveis-de-ensino" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="niveis-de-ensino">
                     <a href="#niveis-de-ensino">Níveis de Ensino</a>
@@ -278,7 +300,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: August 26, 2026</li>
+        <li>Last updated: August 27, 2026</li>
     </ul>
 </div>
 
@@ -505,11 +527,11 @@ Consulte o console das ferramentas de desenvolvedor para obter informações de 
     --data "{
     \"user_id\": 16,
     \"registration_number\": \"n\",
-    \"birth_date\": \"2022-09-19\",
-    \"gender\": \"male\",
+    \"birth_date\": \"2022-09-20\",
+    \"gender\": \"other\",
     \"cpf\": \"82256977571\",
     \"address\": \"g\",
-    \"status\": \"blocked\",
+    \"status\": \"inactive\",
     \"guardians\": [
         {
             \"name\": \"b\",
@@ -539,11 +561,11 @@ const headers = {
 let body = {
     "user_id": 16,
     "registration_number": "n",
-    "birth_date": "2022-09-19",
-    "gender": "male",
+    "birth_date": "2022-09-20",
+    "gender": "other",
     "cpf": "82256977571",
     "address": "g",
-    "status": "blocked",
+    "status": "inactive",
     "guardians": [
         {
             "name": "b",
@@ -676,10 +698,10 @@ Consulte o console das ferramentas de desenvolvedor para obter informações de 
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"                name="birth_date"  data-endpoint="POSTapi-students"
-               value="2022-09-19"
+               value="2022-09-20"
                data-component="body">
     <br>
-<p>Deve ser uma data válida. Deve ser uma data anterior a <code>today</code>. Exemplo: <code>2022-09-19</code></p>
+<p>Deve ser uma data válida. Deve ser uma data anterior a <code>today</code>. Exemplo: <code>2022-09-20</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>gender</code></b>&nbsp;&nbsp;
@@ -687,10 +709,10 @@ Consulte o console das ferramentas de desenvolvedor para obter informações de 
 <i>opcional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"                name="gender"  data-endpoint="POSTapi-students"
-               value="male"
+               value="other"
                data-component="body">
     <br>
-<p>Exemplo: <code>male</code></p>
+<p>Exemplo: <code>other</code></p>
 Deve ser um dos seguintes valores:
 <ul style="list-style-type: square;"><li><code>male</code></li> <li><code>female</code></li> <li><code>other</code></li></ul>
         </div>
@@ -722,10 +744,10 @@ Deve ser um dos seguintes valores:
 <i>opcional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"                name="status"  data-endpoint="POSTapi-students"
-               value="blocked"
+               value="inactive"
                data-component="body">
     <br>
-<p>Exemplo: <code>blocked</code></p>
+<p>Exemplo: <code>inactive</code></p>
 Deve ser um dos seguintes valores:
 <ul style="list-style-type: square;"><li><code>active</code></li> <li><code>inactive</code></li> <li><code>blocked</code></li></ul>
         </div>
@@ -3298,6 +3320,904 @@ Deve ser um dos seguintes valores:
 <ul style="list-style-type: square;"><li><code>active</code></li> <li><code>inactive</code></li></ul>
         </div>
         </form>
+
+                <h1 id="disciplinas-da-turma">Disciplinas da Turma</h1>
+
+    
+
+                                <h2 id="disciplinas-da-turma-GETapi-school-classes--classUuid--subjects">Listar Disciplinas da Turma</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Retorna a lista paginada de disciplinas da turma.</p>
+
+<span id="example-requests-GETapi-school-classes--classUuid--subjects">
+<blockquote>Exemplo de requisição:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/school-classes/6ff8f7f6-1eb3-3525-be4a-3932c805afed/subjects?status=active&amp;per_page=10&amp;page=1" \
+    --header "Authorization: Bearer SEU_TOKEN" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/school-classes/6ff8f7f6-1eb3-3525-be4a-3932c805afed/subjects"
+);
+
+const params = {
+    "status": "active",
+    "per_page": "10",
+    "page": "1",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Authorization": "Bearer SEU_TOKEN",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-school-classes--classUuid--subjects">
+            <blockquote>
+            <p>Exemplo de resposta (401):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-school-classes--classUuid--subjects" hidden>
+    <blockquote>Resposta recebida<span
+                id="execution-response-status-GETapi-school-classes--classUuid--subjects"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-school-classes--classUuid--subjects"
+      data-empty-response-text="<Resposta vazia>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-school-classes--classUuid--subjects" hidden>
+    <blockquote>A requisição falhou com erro:</blockquote>
+    <pre><code id="execution-error-message-GETapi-school-classes--classUuid--subjects">
+
+Dica: verifique se você está conectado corretamente à rede.
+Se você mantém esta API, verifique se ela está em execução e se o CORS está habilitado.
+Consulte o console das ferramentas de desenvolvedor para obter informações de depuração.</code></pre>
+</span>
+<form id="form-GETapi-school-classes--classUuid--subjects" data-method="GET"
+      data-path="api/school-classes/{classUuid}/subjects"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-school-classes--classUuid--subjects', this);">
+    <h3>
+        Requisição&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-school-classes--classUuid--subjects"
+                    onclick="tryItOut('GETapi-school-classes--classUuid--subjects');">Testar ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-school-classes--classUuid--subjects"
+                    onclick="cancelTryOut('GETapi-school-classes--classUuid--subjects');" hidden>Cancelar 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-school-classes--classUuid--subjects"
+                    data-initial-text="Enviar requisição 💥"
+                    data-loading-text="⏱ Enviando..."
+                    hidden>Enviar requisição 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/school-classes/{classUuid}/subjects</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Cabeçalhos</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Authorization" class="auth-value" data-endpoint="GETapi-school-classes--classUuid--subjects"
+               value="Bearer SEU_TOKEN"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>Bearer SEU_TOKEN</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Content-Type"  data-endpoint="GETapi-school-classes--classUuid--subjects"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Accept"  data-endpoint="GETapi-school-classes--classUuid--subjects"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Parâmetros da URL</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>classUuid</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="classUuid"  data-endpoint="GETapi-school-classes--classUuid--subjects"
+               value="6ff8f7f6-1eb3-3525-be4a-3932c805afed"
+               data-component="url">
+    <br>
+<p>Exemplo: <code>6ff8f7f6-1eb3-3525-be4a-3932c805afed</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Parâmetros da consulta</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>opcional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="status"  data-endpoint="GETapi-school-classes--classUuid--subjects"
+               value="active"
+               data-component="query">
+    <br>
+<p>Status da disciplina ofertada na turma. Exemplo: <code>active</code></p>
+Deve ser um dos seguintes valores:
+<ul style="list-style-type: square;"><li><code>active</code></li> <li><code>inactive</code></li></ul>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>per_page</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>opcional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none" step="any"               name="per_page"  data-endpoint="GETapi-school-classes--classUuid--subjects"
+               value="10"
+               data-component="query">
+    <br>
+<p>Quantidade de disciplinas por página, entre 1 e 100. Deve ser pelo menos 1. Não pode ser maior que 100. Exemplo: <code>10</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>page</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>opcional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none" step="any"               name="page"  data-endpoint="GETapi-school-classes--classUuid--subjects"
+               value="1"
+               data-component="query">
+    <br>
+<p>Número da página que será retornada. Deve ser pelo menos 1. Exemplo: <code>1</code></p>
+            </div>
+                </form>
+
+                    <h2 id="disciplinas-da-turma-POSTapi-school-classes--classUuid--subjects">Atribuir Disciplinas à Turma</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTapi-school-classes--classUuid--subjects">
+<blockquote>Exemplo de requisição:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/school-classes/6ff8f7f6-1eb3-3525-be4a-3932c805afed/subjects" \
+    --header "Authorization: Bearer SEU_TOKEN" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"subjects\": [
+        {
+            \"subject_id\": 16,
+            \"weekly_classes\": 5,
+            \"status\": \"active\"
+        },
+        {
+            \"subject_id\": 17,
+            \"weekly_classes\": 2,
+            \"status\": \"active\"
+        }
+    ]
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/school-classes/6ff8f7f6-1eb3-3525-be4a-3932c805afed/subjects"
+);
+
+const headers = {
+    "Authorization": "Bearer SEU_TOKEN",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "subjects": [
+        {
+            "subject_id": 16,
+            "weekly_classes": 5,
+            "status": "active"
+        },
+        {
+            "subject_id": 17,
+            "weekly_classes": 2,
+            "status": "active"
+        }
+    ]
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-school-classes--classUuid--subjects">
+</span>
+<span id="execution-results-POSTapi-school-classes--classUuid--subjects" hidden>
+    <blockquote>Resposta recebida<span
+                id="execution-response-status-POSTapi-school-classes--classUuid--subjects"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-school-classes--classUuid--subjects"
+      data-empty-response-text="<Resposta vazia>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-school-classes--classUuid--subjects" hidden>
+    <blockquote>A requisição falhou com erro:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-school-classes--classUuid--subjects">
+
+Dica: verifique se você está conectado corretamente à rede.
+Se você mantém esta API, verifique se ela está em execução e se o CORS está habilitado.
+Consulte o console das ferramentas de desenvolvedor para obter informações de depuração.</code></pre>
+</span>
+<form id="form-POSTapi-school-classes--classUuid--subjects" data-method="POST"
+      data-path="api/school-classes/{classUuid}/subjects"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-school-classes--classUuid--subjects', this);">
+    <h3>
+        Requisição&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-school-classes--classUuid--subjects"
+                    onclick="tryItOut('POSTapi-school-classes--classUuid--subjects');">Testar ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-school-classes--classUuid--subjects"
+                    onclick="cancelTryOut('POSTapi-school-classes--classUuid--subjects');" hidden>Cancelar 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-school-classes--classUuid--subjects"
+                    data-initial-text="Enviar requisição 💥"
+                    data-loading-text="⏱ Enviando..."
+                    hidden>Enviar requisição 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/school-classes/{classUuid}/subjects</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Cabeçalhos</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Authorization" class="auth-value" data-endpoint="POSTapi-school-classes--classUuid--subjects"
+               value="Bearer SEU_TOKEN"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>Bearer SEU_TOKEN</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Content-Type"  data-endpoint="POSTapi-school-classes--classUuid--subjects"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Accept"  data-endpoint="POSTapi-school-classes--classUuid--subjects"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Parâmetros da URL</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>classUuid</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="classUuid"  data-endpoint="POSTapi-school-classes--classUuid--subjects"
+               value="6ff8f7f6-1eb3-3525-be4a-3932c805afed"
+               data-component="url">
+    <br>
+<p>Exemplo: <code>6ff8f7f6-1eb3-3525-be4a-3932c805afed</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Parâmetros do corpo</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+        <details>
+            <summary style="padding-bottom: 10px;">
+                <b style="line-height: 2;"><code>subjects</code></b>&nbsp;&nbsp;
+<small>object[]</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>Lista de disciplinas que serão atribuídas à turma. Deve ter no mínimo 1 itens.</p>
+            </summary>
+                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>subject_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none" step="any"               name="subjects.0.subject_id"  data-endpoint="POSTapi-school-classes--classUuid--subjects"
+               value="16"
+               data-component="body">
+    <br>
+<p>Must match an existing stored value. Exemplo: <code>16</code></p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>weekly_classes</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>opcional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none" step="any"               name="subjects.0.weekly_classes"  data-endpoint="POSTapi-school-classes--classUuid--subjects"
+               value="22"
+               data-component="body">
+    <br>
+<p>Deve ser pelo menos 1. Não pode ser maior que 255. Exemplo: <code>22</code></p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>opcional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="subjects.0.status"  data-endpoint="POSTapi-school-classes--classUuid--subjects"
+               value="inactive"
+               data-component="body">
+    <br>
+<p>Exemplo: <code>inactive</code></p>
+Deve ser um dos seguintes valores:
+<ul style="list-style-type: square;"><li><code>active</code></li> <li><code>inactive</code></li></ul>
+                    </div>
+                                    </details>
+        </div>
+        </form>
+
+                    <h2 id="disciplinas-da-turma-PUTapi-school-classes--classUuid--subjects--uuid-">Atualizar Disciplinas da Turma</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PUTapi-school-classes--classUuid--subjects--uuid-">
+<blockquote>Exemplo de requisição:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://localhost/api/school-classes/6ff8f7f6-1eb3-3525-be4a-3932c805afed/subjects/6ff8f7f6-1eb3-3525-be4a-3932c805afed" \
+    --header "Authorization: Bearer SEU_TOKEN" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"subject_id\": 21,
+    \"weekly_classes\": 2,
+    \"status\": \"active\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/school-classes/6ff8f7f6-1eb3-3525-be4a-3932c805afed/subjects/6ff8f7f6-1eb3-3525-be4a-3932c805afed"
+);
+
+const headers = {
+    "Authorization": "Bearer SEU_TOKEN",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "subject_id": 21,
+    "weekly_classes": 2,
+    "status": "active"
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-school-classes--classUuid--subjects--uuid-">
+</span>
+<span id="execution-results-PUTapi-school-classes--classUuid--subjects--uuid-" hidden>
+    <blockquote>Resposta recebida<span
+                id="execution-response-status-PUTapi-school-classes--classUuid--subjects--uuid-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-school-classes--classUuid--subjects--uuid-"
+      data-empty-response-text="<Resposta vazia>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTapi-school-classes--classUuid--subjects--uuid-" hidden>
+    <blockquote>A requisição falhou com erro:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-school-classes--classUuid--subjects--uuid-">
+
+Dica: verifique se você está conectado corretamente à rede.
+Se você mantém esta API, verifique se ela está em execução e se o CORS está habilitado.
+Consulte o console das ferramentas de desenvolvedor para obter informações de depuração.</code></pre>
+</span>
+<form id="form-PUTapi-school-classes--classUuid--subjects--uuid-" data-method="PUT"
+      data-path="api/school-classes/{classUuid}/subjects/{uuid}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-school-classes--classUuid--subjects--uuid-', this);">
+    <h3>
+        Requisição&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-school-classes--classUuid--subjects--uuid-"
+                    onclick="tryItOut('PUTapi-school-classes--classUuid--subjects--uuid-');">Testar ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-school-classes--classUuid--subjects--uuid-"
+                    onclick="cancelTryOut('PUTapi-school-classes--classUuid--subjects--uuid-');" hidden>Cancelar 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-school-classes--classUuid--subjects--uuid-"
+                    data-initial-text="Enviar requisição 💥"
+                    data-loading-text="⏱ Enviando..."
+                    hidden>Enviar requisição 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/school-classes/{classUuid}/subjects/{uuid}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Cabeçalhos</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Authorization" class="auth-value" data-endpoint="PUTapi-school-classes--classUuid--subjects--uuid-"
+               value="Bearer SEU_TOKEN"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>Bearer SEU_TOKEN</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Content-Type"  data-endpoint="PUTapi-school-classes--classUuid--subjects--uuid-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Accept"  data-endpoint="PUTapi-school-classes--classUuid--subjects--uuid-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Parâmetros da URL</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>classUuid</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="classUuid"  data-endpoint="PUTapi-school-classes--classUuid--subjects--uuid-"
+               value="6ff8f7f6-1eb3-3525-be4a-3932c805afed"
+               data-component="url">
+    <br>
+<p>Exemplo: <code>6ff8f7f6-1eb3-3525-be4a-3932c805afed</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>uuid</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="uuid"  data-endpoint="PUTapi-school-classes--classUuid--subjects--uuid-"
+               value="6ff8f7f6-1eb3-3525-be4a-3932c805afed"
+               data-component="url">
+    <br>
+<p>Exemplo: <code>6ff8f7f6-1eb3-3525-be4a-3932c805afed</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Parâmetros do corpo</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>subject_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none" step="any"               name="subject_id"  data-endpoint="PUTapi-school-classes--classUuid--subjects--uuid-"
+               value="21"
+               data-component="body">
+    <br>
+<p>Identificador da disciplina. Must match an existing stored value. Exemplo: <code>21</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>weekly_classes</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>opcional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none" step="any"               name="weekly_classes"  data-endpoint="PUTapi-school-classes--classUuid--subjects--uuid-"
+               value="2"
+               data-component="body">
+    <br>
+<p>Quantidade de aulas semanais. Deve ser pelo menos 1. Não pode ser maior que 255. Exemplo: <code>2</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>opcional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="status"  data-endpoint="PUTapi-school-classes--classUuid--subjects--uuid-"
+               value="active"
+               data-component="body">
+    <br>
+<p>Status da disciplina na turma. Exemplo: <code>active</code></p>
+Deve ser um dos seguintes valores:
+<ul style="list-style-type: square;"><li><code>active</code></li> <li><code>inactive</code></li></ul>
+        </div>
+        </form>
+
+                    <h2 id="disciplinas-da-turma-DELETEapi-school-classes--classUuid--subjects--uuid-">Deletar Disciplinas da Turma</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-school-classes--classUuid--subjects--uuid-">
+<blockquote>Exemplo de requisição:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "http://localhost/api/school-classes/6ff8f7f6-1eb3-3525-be4a-3932c805afed/subjects/6ff8f7f6-1eb3-3525-be4a-3932c805afed" \
+    --header "Authorization: Bearer SEU_TOKEN" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/school-classes/6ff8f7f6-1eb3-3525-be4a-3932c805afed/subjects/6ff8f7f6-1eb3-3525-be4a-3932c805afed"
+);
+
+const headers = {
+    "Authorization": "Bearer SEU_TOKEN",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-school-classes--classUuid--subjects--uuid-">
+</span>
+<span id="execution-results-DELETEapi-school-classes--classUuid--subjects--uuid-" hidden>
+    <blockquote>Resposta recebida<span
+                id="execution-response-status-DELETEapi-school-classes--classUuid--subjects--uuid-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-school-classes--classUuid--subjects--uuid-"
+      data-empty-response-text="<Resposta vazia>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-school-classes--classUuid--subjects--uuid-" hidden>
+    <blockquote>A requisição falhou com erro:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-school-classes--classUuid--subjects--uuid-">
+
+Dica: verifique se você está conectado corretamente à rede.
+Se você mantém esta API, verifique se ela está em execução e se o CORS está habilitado.
+Consulte o console das ferramentas de desenvolvedor para obter informações de depuração.</code></pre>
+</span>
+<form id="form-DELETEapi-school-classes--classUuid--subjects--uuid-" data-method="DELETE"
+      data-path="api/school-classes/{classUuid}/subjects/{uuid}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-school-classes--classUuid--subjects--uuid-', this);">
+    <h3>
+        Requisição&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-school-classes--classUuid--subjects--uuid-"
+                    onclick="tryItOut('DELETEapi-school-classes--classUuid--subjects--uuid-');">Testar ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-school-classes--classUuid--subjects--uuid-"
+                    onclick="cancelTryOut('DELETEapi-school-classes--classUuid--subjects--uuid-');" hidden>Cancelar 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-school-classes--classUuid--subjects--uuid-"
+                    data-initial-text="Enviar requisição 💥"
+                    data-loading-text="⏱ Enviando..."
+                    hidden>Enviar requisição 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/school-classes/{classUuid}/subjects/{uuid}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Cabeçalhos</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Authorization" class="auth-value" data-endpoint="DELETEapi-school-classes--classUuid--subjects--uuid-"
+               value="Bearer SEU_TOKEN"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>Bearer SEU_TOKEN</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Content-Type"  data-endpoint="DELETEapi-school-classes--classUuid--subjects--uuid-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Accept"  data-endpoint="DELETEapi-school-classes--classUuid--subjects--uuid-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Parâmetros da URL</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>classUuid</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="classUuid"  data-endpoint="DELETEapi-school-classes--classUuid--subjects--uuid-"
+               value="6ff8f7f6-1eb3-3525-be4a-3932c805afed"
+               data-component="url">
+    <br>
+<p>Exemplo: <code>6ff8f7f6-1eb3-3525-be4a-3932c805afed</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>uuid</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="uuid"  data-endpoint="DELETEapi-school-classes--classUuid--subjects--uuid-"
+               value="6ff8f7f6-1eb3-3525-be4a-3932c805afed"
+               data-component="url">
+    <br>
+<p>Exemplo: <code>6ff8f7f6-1eb3-3525-be4a-3932c805afed</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="disciplinas-da-turma-PUTapi-school-classes--classUuid--subjects--uuid--restore">Restaurar Disciplinas da Turma</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PUTapi-school-classes--classUuid--subjects--uuid--restore">
+<blockquote>Exemplo de requisição:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://localhost/api/school-classes/6ff8f7f6-1eb3-3525-be4a-3932c805afed/subjects/6ff8f7f6-1eb3-3525-be4a-3932c805afed/restore" \
+    --header "Authorization: Bearer SEU_TOKEN" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/school-classes/6ff8f7f6-1eb3-3525-be4a-3932c805afed/subjects/6ff8f7f6-1eb3-3525-be4a-3932c805afed/restore"
+);
+
+const headers = {
+    "Authorization": "Bearer SEU_TOKEN",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "PUT",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-school-classes--classUuid--subjects--uuid--restore">
+</span>
+<span id="execution-results-PUTapi-school-classes--classUuid--subjects--uuid--restore" hidden>
+    <blockquote>Resposta recebida<span
+                id="execution-response-status-PUTapi-school-classes--classUuid--subjects--uuid--restore"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-school-classes--classUuid--subjects--uuid--restore"
+      data-empty-response-text="<Resposta vazia>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTapi-school-classes--classUuid--subjects--uuid--restore" hidden>
+    <blockquote>A requisição falhou com erro:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-school-classes--classUuid--subjects--uuid--restore">
+
+Dica: verifique se você está conectado corretamente à rede.
+Se você mantém esta API, verifique se ela está em execução e se o CORS está habilitado.
+Consulte o console das ferramentas de desenvolvedor para obter informações de depuração.</code></pre>
+</span>
+<form id="form-PUTapi-school-classes--classUuid--subjects--uuid--restore" data-method="PUT"
+      data-path="api/school-classes/{classUuid}/subjects/{uuid}/restore"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-school-classes--classUuid--subjects--uuid--restore', this);">
+    <h3>
+        Requisição&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-school-classes--classUuid--subjects--uuid--restore"
+                    onclick="tryItOut('PUTapi-school-classes--classUuid--subjects--uuid--restore');">Testar ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-school-classes--classUuid--subjects--uuid--restore"
+                    onclick="cancelTryOut('PUTapi-school-classes--classUuid--subjects--uuid--restore');" hidden>Cancelar 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-school-classes--classUuid--subjects--uuid--restore"
+                    data-initial-text="Enviar requisição 💥"
+                    data-loading-text="⏱ Enviando..."
+                    hidden>Enviar requisição 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/school-classes/{classUuid}/subjects/{uuid}/restore</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Cabeçalhos</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Authorization" class="auth-value" data-endpoint="PUTapi-school-classes--classUuid--subjects--uuid--restore"
+               value="Bearer SEU_TOKEN"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>Bearer SEU_TOKEN</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Content-Type"  data-endpoint="PUTapi-school-classes--classUuid--subjects--uuid--restore"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Accept"  data-endpoint="PUTapi-school-classes--classUuid--subjects--uuid--restore"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Parâmetros da URL</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>classUuid</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="classUuid"  data-endpoint="PUTapi-school-classes--classUuid--subjects--uuid--restore"
+               value="6ff8f7f6-1eb3-3525-be4a-3932c805afed"
+               data-component="url">
+    <br>
+<p>Exemplo: <code>6ff8f7f6-1eb3-3525-be4a-3932c805afed</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>uuid</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="uuid"  data-endpoint="PUTapi-school-classes--classUuid--subjects--uuid--restore"
+               value="6ff8f7f6-1eb3-3525-be4a-3932c805afed"
+               data-component="url">
+    <br>
+<p>Exemplo: <code>6ff8f7f6-1eb3-3525-be4a-3932c805afed</code></p>
+            </div>
+                    </form>
 
                 <h1 id="niveis-de-ensino">Níveis de Ensino</h1>
 
