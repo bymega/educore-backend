@@ -11,6 +11,8 @@ interface ClassSubjectRepositoryInterface
 
   public function assign(array $data): ClassSubject;
 
+  public function findByUuid(string $uuid): ?ClassSubject;
+
   public function findByUuidAndClassUuid(string $uuid, string $classUuid): ?ClassSubject;
 
   public function update(ClassSubject $entity, array $data): bool;

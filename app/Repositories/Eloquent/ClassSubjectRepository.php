@@ -38,6 +38,11 @@ class ClassSubjectRepository implements ClassSubjectRepositoryInterface
     return $this->entity::create($data);
   }
 
+  public function findByUuid(string $uuid): ?ClassSubject
+  {
+    return $this->entity::withTrashed()->where('uuid', $uuid)->first();
+  }
+
   public function findByUuidAndClassUuid(string $uuid, string $classUuid): ?ClassSubject
   {
     return $this->entity::withTrashed()
