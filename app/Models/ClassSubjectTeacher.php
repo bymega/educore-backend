@@ -32,7 +32,7 @@ class ClassSubjectTeacher extends Model
         return ['uuid'];
     }
 
-    public function classSuject(): BelongsTo
+    public function classSubject(): BelongsTo
     {
         return $this->belongsTo(ClassSubject::class);
     }
