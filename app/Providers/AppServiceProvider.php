@@ -32,6 +32,8 @@ class AppServiceProvider extends ServiceProvider
         \App\Repositories\Eloquent\SchoolClassRepository::class,
         \App\Repositories\Interface\ClassSubjectRepositoryInterface::class =>
         \App\Repositories\Eloquent\ClassSubjectRepository::class,
+        \App\Repositories\Interface\ClassSubjectTeacherRepositoryInterface::class =>
+        \App\Repositories\Eloquent\ClassSubjectTeacherRepository::class,
     ];
 
 
