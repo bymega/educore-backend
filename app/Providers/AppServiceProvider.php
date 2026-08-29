@@ -22,6 +22,18 @@ class AppServiceProvider extends ServiceProvider
         \App\Repositories\Eloquent\SchoolYearRepository::class,
         \App\Repositories\Interface\TermRepositoryInterface::class =>
         \App\Repositories\Eloquent\TermRepository::class,
+        \App\Repositories\Interface\EducationLevelRepositoryInterface::class =>
+        \App\Repositories\Eloquent\EducationLevelRepository::class,
+        \App\Repositories\Interface\GradeLevelRepositoryInterface::class =>
+        \App\Repositories\Eloquent\GradeLevelRepository::class,
+        \App\Repositories\Interface\SubjectRepositoryInterface::class =>
+        \App\Repositories\Eloquent\SubjectRepository::class,
+        \App\Repositories\Interface\SchoolClassRepositoryInterface::class =>
+        \App\Repositories\Eloquent\SchoolClassRepository::class,
+        \App\Repositories\Interface\ClassSubjectRepositoryInterface::class =>
+        \App\Repositories\Eloquent\ClassSubjectRepository::class,
+        \App\Repositories\Interface\ClassSubjectTeacherRepositoryInterface::class =>
+        \App\Repositories\Eloquent\ClassSubjectTeacherRepository::class,
     ];
 
 

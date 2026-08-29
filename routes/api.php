@@ -1,9 +1,16 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClassSubjectController;
+use App\Http\Controllers\ClassSubjectTeacherController;
+use App\Http\Controllers\ClassSubjectTeacherControlller;
+use App\Http\Controllers\EducationLevelController;
+use App\Http\Controllers\GradeLevelController;
 use App\Http\Controllers\GuardianController;
+use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\SchoolYearController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TermController;
 use App\Http\Controllers\UserController;
@@ -65,5 +72,43 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/{uuid}', [TermController::class, 'update'])->middleware('permission:terms.update');
         Route::delete('/{uuid}', [TermController::class, 'delete'])->middleware('permission:terms.delete');
         Route::put('/{uuid}/restore', [TermController::class, 'restore'])->middleware('permission:terms.restore');
+    });
+
+    Route::prefix('education-levels')->group(function () {
+        Route::get('/', [EducationLevelController::class, 'index'])->middleware('permission:education-levels.view');
+    });
+
+    Route::prefix('grade-levels')->group(function () {
+        Route::get('/', [GradeLevelController::class, 'index'])->middleware('permission:grade-levels.view');
+    });
+
+    Route::prefix('subjects')->group(function () {
+        Route::get('/', [SubjectController::class, 'index'])->middleware('permission:subjects.view');
+        Route::post('/', [SubjectController::class, 'store'])->middleware('permission:subjects.create');
+        Route::put('/{uuid}', [SubjectController::class, 'update'])->middleware('permission:subjects.update');
+    });
+
+    Route::prefix('school-classes')->group(function () {
+        Route::get('/', [SchoolClassController::class, 'index'])->middleware('permission:school-classes.view');
+        Route::post('/', [SchoolClassController::class, 'store'])->middleware('permission:school-classes.create');
+        Route::put('/{uuid}', [SchoolClassController::class, 'update'])->middleware('permission:school-classes.update');
+        Route::delete('/{uuid}', [SchoolClassController::class, 'delete'])->middleware('permission:school-classes.delete');
+        Route::put('/{uuid}/restore', [SchoolClassController::class, 'restore'])->middleware('permission:school-classes.restore');
+    });
+
+    Route::prefix('school-classes/{classUuid}/subjects')->group(function () {
+        Route::get('/', [ClassSubjectController::class, 'index'])->middleware('permission:classes-subjects.view');
+        Route::post('/', [ClassSubjectController::class, 'store'])->middleware('permission:classes-subjects.create');
+        Route::put('/{uuid}', [ClassSubjectController::class, 'update'])->middleware('permission:classes-subjects.update');
+        Route::delete('/{uuid}', [ClassSubjectController::class, 'delete'])->middleware('permission:classes-subjects.delete');
+        Route::put('/{uuid}/restore', [ClassSubjectController::class, 'restore'])->middleware('permission:classes-subjects.restore');
+    });
+
+    Route::prefix('class-subjects/{classSubjectUuid}/teachers')->group(function () {
+        Route::get('/', [ClassSubjectTeacherController::class, 'index'])->middleware('permission:subject-teachers.view');
+        Route::post('/', [ClassSubjectTeacherController::class, 'store'])->middleware('permission:subject-teachers.create');
+        Route::put('/{uuid}', [ClassSubjectTeacherController::class, 'update'])->middleware('permission:subject-teachers.update');
+        Route::delete('/{uuid}', [ClassSubjectTeacherController::class, 'delete'])->middleware('permission:subject-teachers.delete');
+        Route::put('/{uuid}/restore', [ClassSubjectTeacherController::class, 'restore'])->middleware('permission:subject-teachers.restore');
     });
 });
