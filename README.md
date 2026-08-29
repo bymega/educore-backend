@@ -33,9 +33,6 @@ Clone o projeto e copie o arquivo de configuração de exemplo:
 git clone https://github.com/bymega/educore-backend.git
 cd educore-backend
 cp .env.example .env
-docker compose up -d --build
-docker compose up -d --build
-docker compose exec php bash
 ```
 
 ### Configuração do ambiente
@@ -59,13 +56,19 @@ Dentro dos contêineres, `mysql` e `redis` são os nomes dos serviços definidos
 
 ### Inicialização da aplicação
 
-Depois de configurar o `.env`, dentro do container:
+Depois de configurar o `.env`, suba os serviços e acesse o contêiner PHP:
+
+```bash
+docker compose up -d --build
+docker compose exec php bash
+```
+
+Dentro do contêiner, instale as dependências e prepare o banco de dados:
 
 ```bash
 composer install
 php artisan key:generate
-php artisan migrate
-php artisan db:seed
+php artisan migrate --seed
 ```
 
 A aplicação estará disponível em:
