@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\SchoolYear;
 use App\Models\Term;
 use Illuminate\Database\Seeder;
 
@@ -12,9 +13,12 @@ class TermSeeder extends Seeder
      */
     public function run(): void
     {
+        $schoolYear = SchoolYear::query()
+            ->where('name', '2026')
+            ->firstOrFail();
+
         $terms = [
             [
-                'school_year_id' => 1,
                 'name' => '1º Bimestre',
                 'number' => 1,
                 'start_date' => '2026-02-12',
@@ -22,7 +26,6 @@ class TermSeeder extends Seeder
                 'status' => 'completed',
             ],
             [
-                'school_year_id' => 2,
                 'name' => '2º Bimestre',
                 'number' => 2,
                 'start_date' => '2026-04-16',
@@ -30,7 +33,6 @@ class TermSeeder extends Seeder
                 'status' => 'completed',
             ],
             [
-                'school_year_id' => 3,
                 'name' => '3º Bimestre',
                 'number' => 3,
                 'start_date' => '2026-06-18',
@@ -42,10 +44,10 @@ class TermSeeder extends Seeder
         foreach ($terms as $term) {
             Term::query()->updateOrCreate(
                 [
-                    'school_year_id' => $term['school_year_id'],
+                    'school_year_id' => $schoolYear->id,
                     'number' => $term['number'],
                 ],
-                $term,
+                [...$term, 'school_year_id' => $schoolYear->id],
             );
         }
     }

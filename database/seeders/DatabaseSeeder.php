@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             GuardianSeeder::class,
             EducationLevelSeeder::class,
             GradeLevelSeeder::class,
+            SchoolYearSeeder::class,
             TermSeeder::class,
             SubjectSeeder::class,
             SchoolClassSeeder::class,
