@@ -1,58 +1,125 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SGE - Sistema de Gestão Escolar
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+API para gestão integrada de instituições de ensino, turmas, disciplinas, professores, alunos e demais processos acadêmicos.
 
-## About Laravel
+**Stack:** PHP 8.5 · Laravel 13 · MySQL 8 · Redis · Nginx · Laravel Sanctum (autenticação) · Spatie Laravel Permission (permissões) · Pest (testes)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Pré-requisitos
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Docker
+- Docker Compose
+- Git
+- Portas livres no host: `80`, `3306` e `6379`
+- Porta `3307` para execução dos testes de integração
+- Porta `9003` para depuração com Xdebug
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Quickstart
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/bymega/educore-backend.git
+cd educore-backend
+cp .env.example .env
+docker compose up -d --build
+docker compose exec php bash
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Dentro do contêiner, instale as dependências e prepare o banco de dados:
 
-## Contributing
+```bash
+composer install
+php artisan key:generate
+php artisan migrate
+php artisan db:seed
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Funcionalidades
 
-## Code of Conduct
+- Autenticação por token com Laravel Sanctum
+- Controle de usuários, papéis e permissões
+- Gestão de professores, alunos e responsáveis
+- Gestão de anos e períodos letivos
+- Gestão de níveis e séries escolares
+- Cadastro de disciplinas e turmas
+- Vinculação de disciplinas às turmas
+- Vinculação de professores às disciplinas
+- Exclusão lógica e restauração de registros
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Configuração do ambiente
 
-## Security Vulnerabilities
+Após copiar o arquivo `.env.example`, configure a conexão com o MySQL e o Redis no arquivo `.env`:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```env
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=educore
+DB_USERNAME=educore
+DB_PASSWORD=secret
 
-## License
+REDIS_CLIENT=phpredis
+REDIS_HOST=redis
+REDIS_PORT=6379
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Dentro dos contêineres, `mysql` e `redis` são os nomes dos serviços definidos no Docker Compose.
+
+## Acesso inicial
+
+Após executar os seeders, utilize as seguintes credenciais para acessar o ambiente local:
+
+```text
+E-mail: admin@educore.com
+Senha: Ab123456#@
+```
+
+> Essas credenciais são destinadas exclusivamente ao ambiente local de desenvolvimento.
+
+## Documentação da API
+
+Gere a documentação da API com o Scribe:
+
+```bash
+docker compose exec php php artisan scribe:generate
+```
+
+Após a geração, acesse:
+
+```text
+http://localhost/docs
+```
+
+## Testes
+
+Execute a suíte de testes com:
+
+```bash
+docker compose exec php php artisan test
+```
+
+Ou utilize o script do Composer:
+
+```bash
+docker compose exec php composer test
+```
+
+## Comandos úteis
+
+```bash
+# Acessar o contêiner PHP
+docker compose exec php bash
+
+# Visualizar os contêineres
+docker compose ps
+
+# Acompanhar os logs
+docker compose logs -f
+
+# Recriar o banco de dados e executar os seeders
+docker compose exec php php artisan migrate:fresh --seed
+
+# Limpar os caches da aplicação
+docker compose exec php php artisan optimize:clear
+
+# Parar os contêineres
+docker compose down
+```
