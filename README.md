@@ -4,34 +4,6 @@ API para gestão integrada de instituições de ensino, turmas, disciplinas, pro
 
 **Stack:** PHP 8.5 · Laravel 13 · MySQL 8 · Redis · Nginx · Laravel Sanctum (autenticação) · Spatie Laravel Permission (permissões) · Pest (testes)
 
-## Pré-requisitos
-
-- Docker
-- Docker Compose
-- Git
-- Portas livres no host: `80`, `3306` e `6379`
-- Porta `3307` para execução dos testes de integração
-- Porta `9003` para depuração com Xdebug
-
-## Quickstart
-
-```bash
-git clone https://github.com/bymega/educore-backend.git
-cd educore-backend
-cp .env.example .env
-docker compose up -d --build
-docker compose exec php bash
-```
-
-Dentro do contêiner, instale as dependências e prepare o banco de dados:
-
-```bash
-composer install
-php artisan key:generate
-php artisan migrate
-php artisan db:seed
-```
-
 ## Funcionalidades
 
 - Autenticação por token com Laravel Sanctum
@@ -44,9 +16,28 @@ php artisan db:seed
 - Vinculação de professores às disciplinas
 - Exclusão lógica e restauração de registros
 
-## Configuração do ambiente
+## Pré-requisitos
 
-Após copiar o arquivo `.env.example`, configure a conexão com o MySQL e o Redis no arquivo `.env`:
+- Docker
+- Docker Compose
+- Git
+- Portas livres no host: `80`, `3306` e `6379`
+- Porta `3307` para execução dos testes de integração
+- Porta `9003` para depuração com Xdebug
+
+## Início rápido
+
+Clone o projeto e copie o arquivo de configuração de exemplo:
+
+```bash
+git clone https://github.com/bymega/educore-backend.git
+cd educore-backend
+cp .env.example .env
+```
+
+### Configuração do ambiente
+
+Em seguida, configure a conexão com o MySQL e o Redis no arquivo `.env`:
 
 ```env
 DB_CONNECTION=mysql
@@ -62,6 +53,29 @@ REDIS_PORT=6379
 ```
 
 Dentro dos contêineres, `mysql` e `redis` são os nomes dos serviços definidos no Docker Compose.
+
+### Inicialização da aplicação
+
+Depois de configurar o `.env`, suba os serviços e acesse o contêiner PHP:
+
+```bash
+docker compose up -d --build
+docker compose exec php bash
+```
+
+Dentro do contêiner, instale as dependências e prepare o banco de dados:
+
+```bash
+composer install
+php artisan key:generate
+php artisan migrate --seed
+```
+
+A aplicação estará disponível em:
+
+```text
+http://localhost
+```
 
 ## Acesso inicial
 

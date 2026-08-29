@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\GradeLevel;
 use App\Models\SchoolClass;
+use App\Models\SchoolYear;
 use Illuminate\Database\Seeder;
 
 class SchoolClassSeeder extends Seeder
@@ -12,44 +14,54 @@ class SchoolClassSeeder extends Seeder
      */
     public function run(): void
     {
+        $schoolYear = SchoolYear::query()
+            ->where('name', '2026')
+            ->firstOrFail();
+
         $schoolClasses = [
             [
-                'school_year_id' => 1,
-                'grade_level_id' => 18,
+                'grade_level_code' => 'EM01',
                 'name' => 'Turma 100',
                 'code' => 'TRM100',
                 'shift' => 'morning',
                 'room' => 'Sala 10',
                 'capacity' => 30,
-                'status' => 'active'
+                'status' => 'active',
             ],
             [
-                'school_year_id' => 1,
-                'grade_level_id' => 19,
+                'grade_level_code' => 'EM02',
                 'name' => 'Turma 200',
                 'code' => 'TRM200',
                 'shift' => 'afternoon',
                 'room' => 'Sala 20',
                 'capacity' => 20,
-                'status' => 'active'
+                'status' => 'active',
             ],
             [
-                'school_year_id' => 1,
-                'grade_level_id' => 20,
+                'grade_level_code' => 'EM03',
                 'name' => 'Turma 300',
                 'code' => 'TRM300',
                 'shift' => 'morning',
                 'room' => 'Sala 30',
                 'capacity' => 10,
-                'status' => 'active'
+                'status' => 'active',
             ],
-
         ];
 
         foreach ($schoolClasses as $schoolClass) {
-            SchoolClass::updateOrCreate(
+            $gradeLevel = GradeLevel::query()
+                ->where('code', $schoolClass['grade_level_code'])
+                ->firstOrFail();
+
+            unset($schoolClass['grade_level_code']);
+
+            SchoolClass::query()->updateOrCreate(
                 ['code' => $schoolClass['code']],
-                $schoolClass
+                [
+                    ...$schoolClass,
+                    'school_year_id' => $schoolYear->id,
+                    'grade_level_id' => $gradeLevel->id,
+                ],
             );
         }
     }
