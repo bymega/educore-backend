@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\SchoolYear;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -23,8 +24,17 @@ class SchoolYearRequest extends FormRequest
      */
     public function rules(): array
     {
+        $schoolYearId = SchoolYear::query()
+            ->where('uuid', $this->route('uuid'))
+            ->value('id');
+
         return [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('school_years', 'name')->ignore($schoolYearId),
+            ],
             'start_date' => ['required', 'date_format:Y-m-d', 'before:end_date'],
             'end_date' => ['required', 'date_format:Y-m-d', 'after:start_date'],
             'status' => ['sometimes', Rule::in(['planned', 'active', 'completed', 'cancelled'])],
@@ -63,6 +73,7 @@ class SchoolYearRequest extends FormRequest
             'name.required' => 'Informe o ano letivo.',
             'name.string' => 'O ano letivo deve ser um texto.',
             'name.max' => 'O ano letivo deve ter no máximo 255 caracteres.',
+            'name.unique' => 'Já existe um ano letivo com este nome.',
 
             'start_date.required' => 'Informe a data de início do ano letivo.',
             'start_date.date_format' => 'A data de início deve estar no formato AAAA-MM-DD.',

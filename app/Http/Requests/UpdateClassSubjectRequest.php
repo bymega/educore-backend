@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\ClassSubject;
+use App\Models\SchoolClass;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -18,12 +20,23 @@ class UpdateClassSubjectRequest extends FormRequest
      */
     public function rules(): array
     {
+        $schoolClassId = SchoolClass::query()
+            ->where('uuid', $this->route('classUuid'))
+            ->value('id');
+        $classSubjectId = ClassSubject::query()
+            ->withTrashed()
+            ->where('uuid', $this->route('uuid'))
+            ->value('id');
+
         return [
             'subject_id' => [
                 'required',
                 'integer',
                 Rule::exists('subjects', 'id')
                     ->whereNull('deleted_at'),
+                Rule::unique('class_subjects', 'subject_id')
+                    ->where('school_class_id', $schoolClassId)
+                    ->ignore($classSubjectId),
             ],
 
             'weekly_classes' => [
@@ -71,6 +84,7 @@ class UpdateClassSubjectRequest extends FormRequest
             'subject_id.required' => 'Informe a disciplina.',
             'subject_id.integer' => 'A disciplina deve ser identificada por um número inteiro.',
             'subject_id.exists' => 'A disciplina informada não existe ou está excluída.',
+            'subject_id.unique' => 'Esta disciplina já está atribuída a esta turma.',
 
             'weekly_classes.integer' => 'A quantidade de aulas semanais deve ser um número inteiro.',
             'weekly_classes.min' => 'A quantidade de aulas semanais deve ser maior que zero.',
