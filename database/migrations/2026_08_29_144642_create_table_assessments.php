@@ -22,6 +22,8 @@ return new class extends Migration
             $table->decimal('weight', 4, 2);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique(['class_subject_id', 'term_id', 'name'], 'assessments_class_subject_term_name_unique');
         });
     }
 
