@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\ClassSubjectTeacherController;
@@ -119,5 +120,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/{uuid}', [EnrollmentController::class, 'update'])->middleware('permission:enrollments.update');
         Route::delete('/{uuid}', [EnrollmentController::class, 'delete'])->middleware('permission:enrollments.delete');
         Route::put('/{uuid}/restore', [EnrollmentController::class, 'restore'])->middleware('permission:enrollments.restore');
+    });
+
+    Route::prefix('assessments')->group(function () {
+        Route::get('/', [AssessmentController::class, 'index'])->middleware('permission:assessments.view');
+        Route::post('/', [AssessmentController::class, 'store'])->middleware('permission:assessments.create');
+        Route::put('/{uuid}', [AssessmentController::class, 'update'])->middleware('permission:assessments.update');
+        Route::delete('/{uuid}', [AssessmentController::class, 'delete'])->middleware('permission:assessments.delete');
+        Route::put('/{uuid}/restore', [AssessmentController::class, 'restore'])->middleware('permission:assessments.restore');
     });
 });
