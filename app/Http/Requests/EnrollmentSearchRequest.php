@@ -30,6 +30,43 @@ class EnrollmentSearchRequest extends FormRequest
         ];
     }
 
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'student_name' => $this->filled('student_name')
+                ? trim((string) $this->input('student_name'))
+                : $this->input('student_name'),
+            'school_class_name' => $this->filled('school_class_name')
+                ? trim((string) $this->input('school_class_name'))
+                : $this->input('school_class_name'),
+        ]);
+    }
+
+    /**
+     * @return array<string, array<string, mixed>>
+     */
+    public function queryParameters(): array
+    {
+        return [
+            'student_name' => [
+                'description' => 'Nome ou parte do nome do estudante.',
+                'example' => 'Maria',
+            ],
+            'school_class_name' => [
+                'description' => 'Nome ou parte do nome da turma.',
+                'example' => '1º Ano A',
+            ],
+            'per_page' => [
+                'description' => 'Quantidade de matrículas por página, entre 1 e 100.',
+                'example' => 10,
+            ],
+            'page' => [
+                'description' => 'Número da página que será retornada.',
+                'example' => 1,
+            ],
+        ];
+    }
+
     /**
      * @return array<string, string>
      */
