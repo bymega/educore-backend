@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\ClassSubjectTeacherController;
 use App\Http\Controllers\ClassSubjectTeacherControlller;
 use App\Http\Controllers\EducationLevelController;
+use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\GradeLevelController;
 use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\SchoolClassController;
@@ -110,5 +112,21 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/{uuid}', [ClassSubjectTeacherController::class, 'update'])->middleware('permission:subject-teachers.update');
         Route::delete('/{uuid}', [ClassSubjectTeacherController::class, 'delete'])->middleware('permission:subject-teachers.delete');
         Route::put('/{uuid}/restore', [ClassSubjectTeacherController::class, 'restore'])->middleware('permission:subject-teachers.restore');
+    });
+
+    Route::prefix('enrollments')->group(function () {
+        Route::get('/', [EnrollmentController::class, 'index'])->middleware('permission:enrollments.view');
+        Route::post('/', [EnrollmentController::class, 'store'])->middleware('permission:enrollments.create');
+        Route::put('/{uuid}', [EnrollmentController::class, 'update'])->middleware('permission:enrollments.update');
+        Route::delete('/{uuid}', [EnrollmentController::class, 'delete'])->middleware('permission:enrollments.delete');
+        Route::put('/{uuid}/restore', [EnrollmentController::class, 'restore'])->middleware('permission:enrollments.restore');
+    });
+
+    Route::prefix('assessments')->group(function () {
+        Route::get('/', [AssessmentController::class, 'index'])->middleware('permission:assessments.view');
+        Route::post('/', [AssessmentController::class, 'store'])->middleware('permission:assessments.create');
+        Route::put('/{uuid}', [AssessmentController::class, 'update'])->middleware('permission:assessments.update');
+        Route::delete('/{uuid}', [AssessmentController::class, 'delete'])->middleware('permission:assessments.delete');
+        Route::put('/{uuid}/restore', [AssessmentController::class, 'restore'])->middleware('permission:assessments.restore');
     });
 });
