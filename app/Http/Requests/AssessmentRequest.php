@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Assessment;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AssessmentRequest extends FormRequest
 {
@@ -23,6 +25,18 @@ class AssessmentRequest extends FormRequest
      */
     public function rules(): array
     {
+        $assessmentId = null;
+
+        if ($uuid = $this->route('uuid')) {
+            $assessmentId = Assessment::query()
+                ->where('uuid', $uuid)
+                ->value('id');
+
+            if (!$assessmentId) {
+                throw new NotFoundHttpException('Avaliação não encontrada.');
+            }
+        }
+
         return [
             'class_subject_id' => [
                 'required',
@@ -43,6 +57,7 @@ class AssessmentRequest extends FormRequest
                 Rule::unique('assessments', 'name')
                     ->where('class_subject_id', $this->input('class_subject_id'))
                     ->where('term_id', $this->input('term_id'))
+                    ->ignore($assessmentId)
             ],
             'assessment_date' => [
                 'required',
