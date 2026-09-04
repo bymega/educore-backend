@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Assessment extends Model
@@ -34,5 +35,10 @@ class Assessment extends Model
     public function term(): BelongsTo
     {
         return $this->belongsTo(Term::class);
+    }
+
+    public function studentGrades(): HasMany
+    {
+        return $this->hasMany(StudentGrade::class);
     }
 }

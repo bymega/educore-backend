@@ -218,6 +218,28 @@
                             </li>
                                                                         </ul>
                             </ul>
+                    <ul id="tocify-header-notas-de-alunos" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="notas-de-alunos">
+                    <a href="#notas-de-alunos">Notas de Alunos</a>
+                </li>
+                                    <ul id="tocify-subheader-notas-de-alunos" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="notas-de-alunos-GETapi-student-grades">
+                                <a href="#notas-de-alunos-GETapi-student-grades">Listar Notas de Alunos</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="notas-de-alunos-POSTapi-student-grades">
+                                <a href="#notas-de-alunos-POSTapi-student-grades">Cadastrar Notas de Alunos</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="notas-de-alunos-PUTapi-student-grades--uuid-">
+                                <a href="#notas-de-alunos-PUTapi-student-grades--uuid-">Atualizar Notas de Alunos</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="notas-de-alunos-DELETEapi-student-grades--uuid-">
+                                <a href="#notas-de-alunos-DELETEapi-student-grades--uuid-">Deletar Notas de Alunos</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="notas-de-alunos-PUTapi-student-grades--uuid--restore">
+                                <a href="#notas-de-alunos-PUTapi-student-grades--uuid--restore">Restaurar Notas de Alunos</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
                     <ul id="tocify-header-niveis-de-ensino" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="niveis-de-ensino">
                     <a href="#niveis-de-ensino">Níveis de Ensino</a>
@@ -366,7 +388,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: September 1, 2026</li>
+        <li>Last updated: September 4, 2026</li>
     </ul>
 </div>
 
@@ -593,11 +615,11 @@ Consulte o console das ferramentas de desenvolvedor para obter informações de 
     --data "{
     \"user_id\": 16,
     \"registration_number\": \"n\",
-    \"birth_date\": \"2022-09-25\",
-    \"gender\": \"female\",
+    \"birth_date\": \"2022-09-29\",
+    \"gender\": \"male\",
     \"cpf\": \"82256977571\",
     \"address\": \"g\",
-    \"status\": \"blocked\",
+    \"status\": \"active\",
     \"guardians\": [
         {
             \"name\": \"b\",
@@ -627,11 +649,11 @@ const headers = {
 let body = {
     "user_id": 16,
     "registration_number": "n",
-    "birth_date": "2022-09-25",
-    "gender": "female",
+    "birth_date": "2022-09-29",
+    "gender": "male",
     "cpf": "82256977571",
     "address": "g",
-    "status": "blocked",
+    "status": "active",
     "guardians": [
         {
             "name": "b",
@@ -764,10 +786,10 @@ Consulte o console das ferramentas de desenvolvedor para obter informações de 
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"                name="birth_date"  data-endpoint="POSTapi-students"
-               value="2022-09-25"
+               value="2022-09-29"
                data-component="body">
     <br>
-<p>Deve ser uma data válida. Deve ser uma data anterior a <code>today</code>. Exemplo: <code>2022-09-25</code></p>
+<p>Deve ser uma data válida. Deve ser uma data anterior a <code>today</code>. Exemplo: <code>2022-09-29</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>gender</code></b>&nbsp;&nbsp;
@@ -775,10 +797,10 @@ Consulte o console das ferramentas de desenvolvedor para obter informações de 
 <i>opcional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"                name="gender"  data-endpoint="POSTapi-students"
-               value="female"
+               value="male"
                data-component="body">
     <br>
-<p>Exemplo: <code>female</code></p>
+<p>Exemplo: <code>male</code></p>
 Deve ser um dos seguintes valores:
 <ul style="list-style-type: square;"><li><code>male</code></li> <li><code>female</code></li> <li><code>other</code></li></ul>
         </div>
@@ -810,10 +832,10 @@ Deve ser um dos seguintes valores:
 <i>opcional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"                name="status"  data-endpoint="POSTapi-students"
-               value="blocked"
+               value="active"
                data-component="body">
     <br>
-<p>Exemplo: <code>blocked</code></p>
+<p>Exemplo: <code>active</code></p>
 Deve ser um dos seguintes valores:
 <ul style="list-style-type: square;"><li><code>active</code></li> <li><code>inactive</code></li> <li><code>blocked</code></li></ul>
         </div>
@@ -6015,6 +6037,841 @@ Consulte o console das ferramentas de desenvolvedor para obter informações de 
             </div>
                     </form>
 
+                <h1 id="notas-de-alunos">Notas de Alunos</h1>
+
+    
+
+                                <h2 id="notas-de-alunos-GETapi-student-grades">Listar Notas de Alunos</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Retorna a lista paginada de notas de alunos.</p>
+
+<span id="example-requests-GETapi-student-grades">
+<blockquote>Exemplo de requisição:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/student-grades" \
+    --header "Authorization: Bearer SEU_TOKEN" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"enrollment_id\": \"architecto\",
+    \"assessment_id\": \"architecto\",
+    \"per_page\": 16
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/student-grades"
+);
+
+const headers = {
+    "Authorization": "Bearer SEU_TOKEN",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "enrollment_id": "architecto",
+    "assessment_id": "architecto",
+    "per_page": 16
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-student-grades">
+            <blockquote>
+            <p>Exemplo de resposta (401):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-student-grades" hidden>
+    <blockquote>Resposta recebida<span
+                id="execution-response-status-GETapi-student-grades"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-student-grades"
+      data-empty-response-text="<Resposta vazia>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-student-grades" hidden>
+    <blockquote>A requisição falhou com erro:</blockquote>
+    <pre><code id="execution-error-message-GETapi-student-grades">
+
+Dica: verifique se você está conectado corretamente à rede.
+Se você mantém esta API, verifique se ela está em execução e se o CORS está habilitado.
+Consulte o console das ferramentas de desenvolvedor para obter informações de depuração.</code></pre>
+</span>
+<form id="form-GETapi-student-grades" data-method="GET"
+      data-path="api/student-grades"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-student-grades', this);">
+    <h3>
+        Requisição&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-student-grades"
+                    onclick="tryItOut('GETapi-student-grades');">Testar ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-student-grades"
+                    onclick="cancelTryOut('GETapi-student-grades');" hidden>Cancelar 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-student-grades"
+                    data-initial-text="Enviar requisição 💥"
+                    data-loading-text="⏱ Enviando..."
+                    hidden>Enviar requisição 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/student-grades</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Cabeçalhos</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Authorization" class="auth-value" data-endpoint="GETapi-student-grades"
+               value="Bearer SEU_TOKEN"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>Bearer SEU_TOKEN</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Content-Type"  data-endpoint="GETapi-student-grades"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Accept"  data-endpoint="GETapi-student-grades"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Parâmetros do corpo</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>enrollment_id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>opcional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="enrollment_id"  data-endpoint="GETapi-student-grades"
+               value="architecto"
+               data-component="body">
+    <br>
+<p>Exemplo: <code>architecto</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>assessment_id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>opcional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="assessment_id"  data-endpoint="GETapi-student-grades"
+               value="architecto"
+               data-component="body">
+    <br>
+<p>Exemplo: <code>architecto</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>per_page</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>opcional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none" step="any"               name="per_page"  data-endpoint="GETapi-student-grades"
+               value="16"
+               data-component="body">
+    <br>
+<p>Exemplo: <code>16</code></p>
+        </div>
+        </form>
+
+                    <h2 id="notas-de-alunos-POSTapi-student-grades">Cadastrar Notas de Alunos</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTapi-student-grades">
+<blockquote>Exemplo de requisição:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/student-grades" \
+    --header "Authorization: Bearer SEU_TOKEN" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"assessment_id\": 16,
+    \"enrollment_id\": 16,
+    \"score\": 22,
+    \"observation\": \"g\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/student-grades"
+);
+
+const headers = {
+    "Authorization": "Bearer SEU_TOKEN",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "assessment_id": 16,
+    "enrollment_id": 16,
+    "score": 22,
+    "observation": "g"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-student-grades">
+</span>
+<span id="execution-results-POSTapi-student-grades" hidden>
+    <blockquote>Resposta recebida<span
+                id="execution-response-status-POSTapi-student-grades"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-student-grades"
+      data-empty-response-text="<Resposta vazia>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-student-grades" hidden>
+    <blockquote>A requisição falhou com erro:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-student-grades">
+
+Dica: verifique se você está conectado corretamente à rede.
+Se você mantém esta API, verifique se ela está em execução e se o CORS está habilitado.
+Consulte o console das ferramentas de desenvolvedor para obter informações de depuração.</code></pre>
+</span>
+<form id="form-POSTapi-student-grades" data-method="POST"
+      data-path="api/student-grades"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-student-grades', this);">
+    <h3>
+        Requisição&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-student-grades"
+                    onclick="tryItOut('POSTapi-student-grades');">Testar ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-student-grades"
+                    onclick="cancelTryOut('POSTapi-student-grades');" hidden>Cancelar 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-student-grades"
+                    data-initial-text="Enviar requisição 💥"
+                    data-loading-text="⏱ Enviando..."
+                    hidden>Enviar requisição 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/student-grades</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Cabeçalhos</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Authorization" class="auth-value" data-endpoint="POSTapi-student-grades"
+               value="Bearer SEU_TOKEN"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>Bearer SEU_TOKEN</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Content-Type"  data-endpoint="POSTapi-student-grades"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Accept"  data-endpoint="POSTapi-student-grades"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Parâmetros do corpo</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>assessment_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none" step="any"               name="assessment_id"  data-endpoint="POSTapi-student-grades"
+               value="16"
+               data-component="body">
+    <br>
+<p>Must match an existing stored value. Exemplo: <code>16</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>enrollment_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none" step="any"               name="enrollment_id"  data-endpoint="POSTapi-student-grades"
+               value="16"
+               data-component="body">
+    <br>
+<p>Must match an existing stored value. Exemplo: <code>16</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>score</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none" step="any"               name="score"  data-endpoint="POSTapi-student-grades"
+               value="22"
+               data-component="body">
+    <br>
+<p>Deve ser pelo menos 0. Não pode ser maior que 99.99. Exemplo: <code>22</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>observation</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>opcional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="observation"  data-endpoint="POSTapi-student-grades"
+               value="g"
+               data-component="body">
+    <br>
+<p>Não pode ter mais de 255 caracteres. Exemplo: <code>g</code></p>
+        </div>
+        </form>
+
+                    <h2 id="notas-de-alunos-PUTapi-student-grades--uuid-">Atualizar Notas de Alunos</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PUTapi-student-grades--uuid-">
+<blockquote>Exemplo de requisição:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://localhost/api/student-grades/6ff8f7f6-1eb3-3525-be4a-3932c805afed" \
+    --header "Authorization: Bearer SEU_TOKEN" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"assessment_id\": 16,
+    \"enrollment_id\": 16,
+    \"score\": 22,
+    \"observation\": \"g\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/student-grades/6ff8f7f6-1eb3-3525-be4a-3932c805afed"
+);
+
+const headers = {
+    "Authorization": "Bearer SEU_TOKEN",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "assessment_id": 16,
+    "enrollment_id": 16,
+    "score": 22,
+    "observation": "g"
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-student-grades--uuid-">
+</span>
+<span id="execution-results-PUTapi-student-grades--uuid-" hidden>
+    <blockquote>Resposta recebida<span
+                id="execution-response-status-PUTapi-student-grades--uuid-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-student-grades--uuid-"
+      data-empty-response-text="<Resposta vazia>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTapi-student-grades--uuid-" hidden>
+    <blockquote>A requisição falhou com erro:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-student-grades--uuid-">
+
+Dica: verifique se você está conectado corretamente à rede.
+Se você mantém esta API, verifique se ela está em execução e se o CORS está habilitado.
+Consulte o console das ferramentas de desenvolvedor para obter informações de depuração.</code></pre>
+</span>
+<form id="form-PUTapi-student-grades--uuid-" data-method="PUT"
+      data-path="api/student-grades/{uuid}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-student-grades--uuid-', this);">
+    <h3>
+        Requisição&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-student-grades--uuid-"
+                    onclick="tryItOut('PUTapi-student-grades--uuid-');">Testar ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-student-grades--uuid-"
+                    onclick="cancelTryOut('PUTapi-student-grades--uuid-');" hidden>Cancelar 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-student-grades--uuid-"
+                    data-initial-text="Enviar requisição 💥"
+                    data-loading-text="⏱ Enviando..."
+                    hidden>Enviar requisição 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/student-grades/{uuid}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Cabeçalhos</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Authorization" class="auth-value" data-endpoint="PUTapi-student-grades--uuid-"
+               value="Bearer SEU_TOKEN"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>Bearer SEU_TOKEN</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Content-Type"  data-endpoint="PUTapi-student-grades--uuid-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Accept"  data-endpoint="PUTapi-student-grades--uuid-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Parâmetros da URL</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>uuid</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="uuid"  data-endpoint="PUTapi-student-grades--uuid-"
+               value="6ff8f7f6-1eb3-3525-be4a-3932c805afed"
+               data-component="url">
+    <br>
+<p>Exemplo: <code>6ff8f7f6-1eb3-3525-be4a-3932c805afed</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Parâmetros do corpo</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>assessment_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none" step="any"               name="assessment_id"  data-endpoint="PUTapi-student-grades--uuid-"
+               value="16"
+               data-component="body">
+    <br>
+<p>Must match an existing stored value. Exemplo: <code>16</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>enrollment_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none" step="any"               name="enrollment_id"  data-endpoint="PUTapi-student-grades--uuid-"
+               value="16"
+               data-component="body">
+    <br>
+<p>Must match an existing stored value. Exemplo: <code>16</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>score</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none" step="any"               name="score"  data-endpoint="PUTapi-student-grades--uuid-"
+               value="22"
+               data-component="body">
+    <br>
+<p>Deve ser pelo menos 0. Não pode ser maior que 99.99. Exemplo: <code>22</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>observation</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>opcional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="observation"  data-endpoint="PUTapi-student-grades--uuid-"
+               value="g"
+               data-component="body">
+    <br>
+<p>Não pode ter mais de 255 caracteres. Exemplo: <code>g</code></p>
+        </div>
+        </form>
+
+                    <h2 id="notas-de-alunos-DELETEapi-student-grades--uuid-">Deletar Notas de Alunos</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-student-grades--uuid-">
+<blockquote>Exemplo de requisição:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "http://localhost/api/student-grades/6ff8f7f6-1eb3-3525-be4a-3932c805afed" \
+    --header "Authorization: Bearer SEU_TOKEN" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/student-grades/6ff8f7f6-1eb3-3525-be4a-3932c805afed"
+);
+
+const headers = {
+    "Authorization": "Bearer SEU_TOKEN",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-student-grades--uuid-">
+</span>
+<span id="execution-results-DELETEapi-student-grades--uuid-" hidden>
+    <blockquote>Resposta recebida<span
+                id="execution-response-status-DELETEapi-student-grades--uuid-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-student-grades--uuid-"
+      data-empty-response-text="<Resposta vazia>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-student-grades--uuid-" hidden>
+    <blockquote>A requisição falhou com erro:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-student-grades--uuid-">
+
+Dica: verifique se você está conectado corretamente à rede.
+Se você mantém esta API, verifique se ela está em execução e se o CORS está habilitado.
+Consulte o console das ferramentas de desenvolvedor para obter informações de depuração.</code></pre>
+</span>
+<form id="form-DELETEapi-student-grades--uuid-" data-method="DELETE"
+      data-path="api/student-grades/{uuid}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-student-grades--uuid-', this);">
+    <h3>
+        Requisição&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-student-grades--uuid-"
+                    onclick="tryItOut('DELETEapi-student-grades--uuid-');">Testar ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-student-grades--uuid-"
+                    onclick="cancelTryOut('DELETEapi-student-grades--uuid-');" hidden>Cancelar 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-student-grades--uuid-"
+                    data-initial-text="Enviar requisição 💥"
+                    data-loading-text="⏱ Enviando..."
+                    hidden>Enviar requisição 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/student-grades/{uuid}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Cabeçalhos</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Authorization" class="auth-value" data-endpoint="DELETEapi-student-grades--uuid-"
+               value="Bearer SEU_TOKEN"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>Bearer SEU_TOKEN</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Content-Type"  data-endpoint="DELETEapi-student-grades--uuid-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Accept"  data-endpoint="DELETEapi-student-grades--uuid-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Parâmetros da URL</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>uuid</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="uuid"  data-endpoint="DELETEapi-student-grades--uuid-"
+               value="6ff8f7f6-1eb3-3525-be4a-3932c805afed"
+               data-component="url">
+    <br>
+<p>Exemplo: <code>6ff8f7f6-1eb3-3525-be4a-3932c805afed</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="notas-de-alunos-PUTapi-student-grades--uuid--restore">Restaurar Notas de Alunos</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PUTapi-student-grades--uuid--restore">
+<blockquote>Exemplo de requisição:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://localhost/api/student-grades/6ff8f7f6-1eb3-3525-be4a-3932c805afed/restore" \
+    --header "Authorization: Bearer SEU_TOKEN" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/student-grades/6ff8f7f6-1eb3-3525-be4a-3932c805afed/restore"
+);
+
+const headers = {
+    "Authorization": "Bearer SEU_TOKEN",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "PUT",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-student-grades--uuid--restore">
+</span>
+<span id="execution-results-PUTapi-student-grades--uuid--restore" hidden>
+    <blockquote>Resposta recebida<span
+                id="execution-response-status-PUTapi-student-grades--uuid--restore"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-student-grades--uuid--restore"
+      data-empty-response-text="<Resposta vazia>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTapi-student-grades--uuid--restore" hidden>
+    <blockquote>A requisição falhou com erro:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-student-grades--uuid--restore">
+
+Dica: verifique se você está conectado corretamente à rede.
+Se você mantém esta API, verifique se ela está em execução e se o CORS está habilitado.
+Consulte o console das ferramentas de desenvolvedor para obter informações de depuração.</code></pre>
+</span>
+<form id="form-PUTapi-student-grades--uuid--restore" data-method="PUT"
+      data-path="api/student-grades/{uuid}/restore"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-student-grades--uuid--restore', this);">
+    <h3>
+        Requisição&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-student-grades--uuid--restore"
+                    onclick="tryItOut('PUTapi-student-grades--uuid--restore');">Testar ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-student-grades--uuid--restore"
+                    onclick="cancelTryOut('PUTapi-student-grades--uuid--restore');" hidden>Cancelar 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-student-grades--uuid--restore"
+                    data-initial-text="Enviar requisição 💥"
+                    data-loading-text="⏱ Enviando..."
+                    hidden>Enviar requisição 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/student-grades/{uuid}/restore</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Cabeçalhos</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Authorization" class="auth-value" data-endpoint="PUTapi-student-grades--uuid--restore"
+               value="Bearer SEU_TOKEN"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>Bearer SEU_TOKEN</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Content-Type"  data-endpoint="PUTapi-student-grades--uuid--restore"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="Accept"  data-endpoint="PUTapi-student-grades--uuid--restore"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Exemplo: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Parâmetros da URL</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>uuid</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"                name="uuid"  data-endpoint="PUTapi-student-grades--uuid--restore"
+               value="6ff8f7f6-1eb3-3525-be4a-3932c805afed"
+               data-component="url">
+    <br>
+<p>Exemplo: <code>6ff8f7f6-1eb3-3525-be4a-3932c805afed</code></p>
+            </div>
+                    </form>
+
                 <h1 id="niveis-de-ensino">Níveis de Ensino</h1>
 
     
@@ -8284,10 +9141,10 @@ Consulte o console das ferramentas de desenvolvedor para obter informações de 
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"                name="teachers.0.start_date"  data-endpoint="POSTapi-class-subjects--classSubjectUuid--teachers"
-               value="2026-09-01"
+               value="2026-09-04"
                data-component="body">
     <br>
-<p>Deve ser uma data válida no formato <code>Y-m-d</code>. Exemplo: <code>2026-09-01</code></p>
+<p>Deve ser uma data válida no formato <code>Y-m-d</code>. Exemplo: <code>2026-09-04</code></p>
                     </div>
                                                                 <div style="margin-left: 14px; clear: unset;">
                         <b style="line-height: 2;"><code>end_date</code></b>&nbsp;&nbsp;
@@ -8295,10 +9152,10 @@ Consulte o console das ferramentas de desenvolvedor para obter informações de 
 <i>opcional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"                name="teachers.0.end_date"  data-endpoint="POSTapi-class-subjects--classSubjectUuid--teachers"
-               value="2052-09-24"
+               value="2052-09-27"
                data-component="body">
     <br>
-<p>Deve ser uma data válida no formato <code>Y-m-d</code>. validation.after_or_equal. Exemplo: <code>2052-09-24</code></p>
+<p>Deve ser uma data válida no formato <code>Y-m-d</code>. validation.after_or_equal. Exemplo: <code>2052-09-27</code></p>
                     </div>
                                     </details>
         </div>
