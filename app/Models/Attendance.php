@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ClassLesson extends Model
+class Attendance extends Model
 {
     use HasUuids, SoftDeletes;
 
     public $fillable = [
-        'class_subject_id',
-        'lesson_date',
-        'content',
+        'class_lesson_id',
+        'enrollment_id',
+        'status'
     ];
 
     public function uniqueIds(): array
@@ -23,13 +22,13 @@ class ClassLesson extends Model
         return ['uuid'];
     }
 
-    public function classSubject(): BelongsTo
+    public function classLesson(): BelongsTo
     {
-        return $this->belongsTo(ClassSubject::class);
+        return $this->belongsTo(ClassLesson::class);
     }
 
-    public function attendances(): HasMany
+    public function enrollment(): BelongsTo
     {
-        return $this->hasMany(Attendance::class);
+        return $this->belongsTo(Enrollment::class);
     }
 }
