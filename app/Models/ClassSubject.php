@@ -46,4 +46,9 @@ class ClassSubject extends Model
     {
         return $this->hasMany(Assessment::class);
     }
+
+    public function classLesson(): HasMany
+    {
+        return $this->hasMany(ClassLesson::class);
+    }
 }
