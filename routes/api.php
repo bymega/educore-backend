@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\AssessmentController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassLessonController;
 use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\ClassSubjectTeacherController;
-use App\Http\Controllers\ClassSubjectTeacherControlller;
 use App\Http\Controllers\EducationLevelController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\GradeLevelController;
@@ -18,7 +18,6 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TermController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login'])
@@ -146,5 +145,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/{uuid}', [ClassLessonController::class, 'update'])->middleware('permission:class-lessons.update');
         Route::delete('/{uuid}', [ClassLessonController::class, 'delete'])->middleware('permission:class-lessons.delete');
         Route::put('/{uuid}/restore', [ClassLessonController::class, 'restore'])->middleware('permission:class-lessons.restore');
+    });
+
+    Route::prefix('attendances')->group(function () {
+        Route::get('/', [AttendanceController::class, 'index'])->middleware('permission:attendances.view');
+        Route::post('/', [AttendanceController::class, 'store'])->middleware('permission:attendances.create');
+        Route::put('/{uuid}', [AttendanceController::class, 'update'])->middleware('permission:attendances.update');
+        Route::delete('/{uuid}', [AttendanceController::class, 'delete'])->middleware('permission:attendances.delete');
+        Route::put('/{uuid}/restore', [AttendanceController::class, 'restore'])->middleware('permission:attendances.restore');
     });
 });
