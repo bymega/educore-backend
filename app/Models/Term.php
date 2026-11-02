@@ -37,4 +37,9 @@ class Term extends Model
     {
         return $this->hasMany(Assessment::class);
     }
+
+    public function termResults(): HasMany
+    {
+        return $this->hasMany(TermResult::class);
+    }
 }
