@@ -44,4 +44,9 @@ class Enrollment extends Model
     {
         return $this->hasMany(Attendance::class);
     }
+
+    public function termResults(): HasMany
+    {
+        return $this->hasMany(TermResult::class);
+    }
 }
