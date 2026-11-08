@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\UserHasRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -19,13 +18,9 @@ class StoreStudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => [
-                'required',
-                'integer',
-                Rule::exists('users', 'id')->whereNull('deleted_at'),
-                new UserHasRole('aluno'),
-                Rule::unique('students', 'user_id'),
-            ],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')],
+            'password' => ['required', 'string', 'min:8'],
             'registration_number' => [
                 'required',
                 'string',
@@ -80,11 +75,13 @@ class StoreStudentRequest extends FormRequest
                 }
 
                 return $guardian;
-            })
-                ->all();
+            })->all();
         }
 
         $this->merge([
+            'email' => $this->filled('email')
+                ? mb_strtolower(trim((string) $this->input('email')))
+                : $this->input('email'),
             'cpf' => $this->filled('cpf')
                 ? preg_replace('/\D/', '', (string) $this->input('cpf'))
                 : $this->input('cpf'),
@@ -100,7 +97,7 @@ class StoreStudentRequest extends FormRequest
         return [
             function ($validator): void {
                 $primaryCount = collect($this->input('guardians', []))
-                    ->filter(fn ($guardian) => in_array(
+                    ->filter(fn ($guardian) => is_array($guardian) && in_array(
                         $guardian['is_primary'] ?? false,
                         [true, 1, '1'],
                         true
@@ -123,8 +120,8 @@ class StoreStudentRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'user_id.exists' => 'O usuário informado não existe ou está excluído.',
-            'user_id.unique' => 'Este usuário já possui um cadastro de aluno.',
+            'email.unique' => 'Este e-mail já está cadastrado.',
+            'password.min' => 'A senha deve conter pelo menos 8 caracteres.',
             'registration_number.unique' => 'Esta matrícula já está cadastrada.',
             'birth_date.before' => 'A data de nascimento deve ser anterior à data atual.',
             'cpf.digits' => 'O CPF deve conter exatamente 11 dígitos.',

@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Models\Guardian;
+use App\Models\User;
 use App\Repositories\Interface\StudentRepositoryInterface;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class StudentService
@@ -21,7 +23,22 @@ class StudentService
         return DB::transaction(function () use ($data) {
             $guardians = $data['guardians'];
 
-            unset($data['guardians']);
+            $user = User::query()->create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+
+            $user->assignRole('aluno');
+
+            unset(
+                $data['name'],
+                $data['email'],
+                $data['password'],
+                $data['guardians']
+            );
+
+            $data['user_id'] = $user->id;
 
             $student = $this->repository->create($data);
 
@@ -41,7 +58,7 @@ class StudentService
                 $student->guardians()->attach($guardian->id, $pivotData);
             }
 
-            return $student->load('guardians');
+            return $student->load(['user', 'guardians']);
         });
     }
 
