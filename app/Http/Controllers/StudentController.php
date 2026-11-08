@@ -30,11 +30,13 @@ class StudentController extends Controller
     /**
      * Cadastrar Alunos
      *
+     * Cria a conta de acesso, o perfil do aluno e seus responsáveis.
+     *
      * @group Alunos
      */
     public function store(StoreStudentRequest $request): JsonResponse
     {
-        $this->service->create($request->validated());
+        $student = $this->service->create($request->validated());
 
         return response()->json([
             'message' => 'Aluno cadastrado com sucesso.',
