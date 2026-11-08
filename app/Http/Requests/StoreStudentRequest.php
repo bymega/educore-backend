@@ -97,7 +97,7 @@ class StoreStudentRequest extends FormRequest
         return [
             function ($validator): void {
                 $primaryCount = collect($this->input('guardians', []))
-                    ->filter(fn ($guardian) => in_array(
+                    ->filter(fn ($guardian) => is_array($guardian) && in_array(
                         $guardian['is_primary'] ?? false,
                         [true, 1, '1'],
                         true
