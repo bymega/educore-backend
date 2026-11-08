@@ -7,10 +7,13 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\Sanctum;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 uses(RefreshDatabase::class);
 
 beforeEach(function () {
+    app(PermissionRegistrar::class)->forgetCachedPermissions();
+
     $studentRole = Role::create([
         'name' => 'aluno',
         'guard_name' => 'web',
@@ -31,6 +34,7 @@ beforeEach(function () {
     $admin = User::factory()->create();
     $admin->assignRole($adminRole);
 
+    app(PermissionRegistrar::class)->forgetCachedPermissions();
     Sanctum::actingAs($admin);
 });
 
