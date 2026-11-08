@@ -1,9 +1,9 @@
 <?php
 
-namespace App\\Http\\Requests;
+namespace App\Http\Requests;
 
-use Illuminate\\Foundation\\Http\\FormRequest;
-use Illuminate\\Validation\\Rule;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreStudentRequest extends FormRequest
 {
@@ -67,7 +67,7 @@ class StoreStudentRequest extends FormRequest
                 }
 
                 if (! empty($guardian['cpf'])) {
-                    $guardian['cpf'] = preg_replace('/\\D/', '', (string) $guardian['cpf']);
+                    $guardian['cpf'] = preg_replace('/\D/', '', (string) $guardian['cpf']);
                 }
 
                 if (! empty($guardian['email'])) {
@@ -83,7 +83,7 @@ class StoreStudentRequest extends FormRequest
                 ? mb_strtolower(trim((string) $this->input('email')))
                 : $this->input('email'),
             'cpf' => $this->filled('cpf')
-                ? preg_replace('/\\D/', '', (string) $this->input('cpf'))
+                ? preg_replace('/\D/', '', (string) $this->input('cpf'))
                 : $this->input('cpf'),
             'guardians' => $guardians,
         ]);
