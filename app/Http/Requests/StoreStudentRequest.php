@@ -21,12 +21,6 @@ class StoreStudentRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')],
             'password' => ['required', 'string', 'min:8'],
-            'registration_number' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('students', 'registration_number'),
-            ],
             'birth_date' => ['required', 'date', 'before:today'],
             'gender' => ['nullable', Rule::in(['male', 'female', 'other'])],
             'cpf' => [
@@ -122,7 +116,6 @@ class StoreStudentRequest extends FormRequest
         return [
             'email.unique' => 'Este e-mail já está cadastrado.',
             'password.min' => 'A senha deve conter pelo menos 8 caracteres.',
-            'registration_number.unique' => 'Esta matrícula já está cadastrada.',
             'birth_date.before' => 'A data de nascimento deve ser anterior à data atual.',
             'cpf.digits' => 'O CPF deve conter exatamente 11 dígitos.',
             'cpf.unique' => 'Este CPF já está cadastrado.',
