@@ -40,12 +40,6 @@ class StudentRequest extends FormRequest
                 new UserHasRole('aluno'),
                 Rule::unique('students', 'user_id')->ignore($studentId),
             ],
-            'registration_number' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('students', 'registration_number')->ignore($studentId),
-            ],
             'birth_date' => ['required', 'date', 'before:today'],
             'gender' => ['nullable', Rule::in(['male', 'female', 'other'])],
             'cpf' => [
@@ -78,7 +72,6 @@ class StudentRequest extends FormRequest
     {
         return [
             'user_id' => ['example' => 1],
-            'registration_number' => ['example' => 'STD101'],
             'birth_date' => ['example' => '2010-05-15'],
             'gender' => ['example' => 'female'],
             'cpf' => ['example' => '52289012345'],
@@ -95,7 +88,6 @@ class StudentRequest extends FormRequest
         return [
             'user_id.exists' => 'O usuário informado não existe ou está excluído.',
             'user_id.unique' => 'Este usuário já possui um cadastro de aluno.',
-            'registration_number.unique' => 'Esta matrícula já está cadastrada.',
             'birth_date.before' => 'A data de nascimento deve ser anterior à data atual.',
             'cpf.digits' => 'O CPF deve conter exatamente 11 dígitos.',
             'cpf.unique' => 'Este CPF já está cadastrado.',
