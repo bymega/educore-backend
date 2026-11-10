@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Guardian;
+use App\Models\StudentRegistrationSequence;
 use App\Models\User;
 use App\Repositories\Interface\StudentRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -39,6 +40,7 @@ class StudentService
             );
 
             $data['user_id'] = $user->id;
+            $data['registration_number'] = StudentRegistrationSequence::generate();
 
             $student = $this->repository->create($data);
 
