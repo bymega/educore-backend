@@ -40,6 +40,7 @@ class StudentController extends Controller
 
         return response()->json([
             'message' => 'Aluno cadastrado com sucesso.',
+            'registration_number' => $student->registration_number,
         ], 201);
     }
 
