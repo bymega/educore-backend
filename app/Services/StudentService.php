@@ -66,13 +66,54 @@ class StudentService
 
     public function update(string $uuid, array $data)
     {
-        $student = $this->repository->findByUuid($uuid);
+        return DB::transaction(function () use ($uuid, $data) {
+            $student = $this->repository->findByUuid($uuid);
 
-        if (! $student) {
-            throw new NotFoundHttpException('Aluno não encontrado');
-        }
+            if (! $student || $student->trashed()) {
+                throw new NotFoundHttpException('Aluno não encontrado');
+            }
 
-        return $this->repository->update($student, $data);
+            $userData = array_intersect_key($data, array_flip(['name', 'email']));
+            if (! empty($data['password'])) {
+                $userData['password'] = Hash::make($data['password']);
+            }
+
+            if ($userData !== []) {
+                $student->user()->firstOrFail()->update($userData);
+            }
+
+            $studentData = array_intersect_key($data, array_flip([
+                'birth_date', 'gender', 'cpf', 'address', 'status',
+            ]));
+
+            if ($studentData !== []) {
+                $this->repository->update($student, $studentData);
+            }
+
+            if (array_key_exists('guardians', $data)) {
+                $sync = [];
+
+                foreach ($data['guardians'] as $guardianData) {
+                    $pivotData = [
+                        'relationship' => $guardianData['relationship'],
+                        'is_primary' => $guardianData['is_primary'],
+                    ];
+
+                    unset($guardianData['relationship'], $guardianData['is_primary']);
+
+                    $guardian = Guardian::query()->firstOrCreate(
+                        ['cpf' => $guardianData['cpf']],
+                        $guardianData
+                    );
+
+                    $sync[$guardian->id] = $pivotData;
+                }
+
+                $student->guardians()->sync($sync);
+            }
+
+            return $student->load(['user', 'guardians']);
+        });
     }
 
     public function delete(string $uuid): void
