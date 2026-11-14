@@ -34,10 +34,11 @@ class TeacherController extends Controller
      */
     public function store(TeacherRequest $request): JsonResponse
     {
-        $this->service->create($request->validated());
+        $teacher = $this->service->create($request->validated());
 
         return response()->json([
             'message' => 'Professor cadastrado com sucesso.',
+            'registration_number' => $teacher->registration_number,
         ], 201);
     }
 
