@@ -41,12 +41,6 @@ class TeacherRequest extends FormRequest
             'email' => [$updating ? 'sometimes' : 'required', 'required', 'string', 'email', 'max:255',
                 Rule::unique('users', 'email')->ignore($teacher?->user_id)],
             'password' => [$updating ? 'sometimes' : 'required', 'nullable', 'string', 'min:8'],
-            'registration_number' => [
-                $updating ? 'sometimes' : 'required',
-                'string',
-                'max:255',
-                Rule::unique('teachers', 'registration_number')->ignore($teacherId),
-            ],
             'cpf' => [
                 $updating ? 'sometimes' : 'required',
                 'string',
@@ -82,9 +76,6 @@ class TeacherRequest extends FormRequest
             'name' => ['example' => 'Maria Silva'],
             'email' => ['example' => 'maria@example.com'],
             'password' => ['example' => 'Senha@123'],
-            'registration_number' => [
-                'example' => 'TCH101',
-            ],
             'cpf' => [
                 'example' => '52289012345',
             ],
@@ -107,7 +98,6 @@ class TeacherRequest extends FormRequest
         return [
             'email.unique' => 'Este e-mail já está cadastrado.',
             'password.min' => 'A senha deve conter pelo menos 8 caracteres.',
-            'registration_number.unique' => 'Esta matrícula já está cadastrada.',
             'cpf.digits' => 'O CPF deve conter exatamente 11 dígitos.',
             'cpf.unique' => 'Este CPF já está cadastrado.',
         ];
