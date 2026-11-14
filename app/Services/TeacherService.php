@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Models\TeacherRegistrationSequence;
 use App\Repositories\Interface\TeacherRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -30,6 +31,7 @@ class TeacherService
 
       unset($data['name'], $data['email'], $data['password']);
       $data['user_id'] = $user->id;
+      $data['registration_number'] = TeacherRegistrationSequence::generate();
 
       return $this->repository->create($data)->load('user');
     });
@@ -54,7 +56,7 @@ class TeacherService
       }
 
       $teacherData = array_intersect_key($data, array_flip([
-        'registration_number', 'cpf', 'specialization', 'status',
+        'cpf', 'specialization', 'status',
       ]));
 
       if ($teacherData !== []) {
