@@ -3,8 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Models\Teacher;
-use App\Rules\UserHasRole;
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -26,34 +24,31 @@ class TeacherRequest extends FormRequest
      */
     public function rules(): array
     {
-        $teacherId = null;
-
+        $teacher = null;
         if ($uuid = $this->route('uuid')) {
-            $teacherId = Teacher::query()
-                ->where('uuid', $uuid)
-                ->value('id');
+            $teacher = Teacher::query()->where('uuid', $uuid)->first();
 
-            if (! $teacherId) {
+            if (! $teacher) {
                 throw new NotFoundHttpException('Professor não encontrado.');
             }
         }
 
+        $teacherId = $teacher?->id;
+        $updating = $teacher !== null;
+
         return [
-            'user_id' => [
-                'required',
-                'integer',
-                Rule::exists('users', 'id')->whereNull('deleted_at'),
-                new UserHasRole('professor'),
-                Rule::unique('teachers', 'user_id')->ignore($teacherId),
-            ],
+            'name' => [$updating ? 'sometimes' : 'required', 'required', 'string', 'max:255'],
+            'email' => [$updating ? 'sometimes' : 'required', 'required', 'string', 'email', 'max:255',
+                Rule::unique('users', 'email')->ignore($teacher?->user_id)],
+            'password' => [$updating ? 'sometimes' : 'required', 'nullable', 'string', 'min:8'],
             'registration_number' => [
-                'required',
+                $updating ? 'sometimes' : 'required',
                 'string',
                 'max:255',
                 Rule::unique('teachers', 'registration_number')->ignore($teacherId),
             ],
             'cpf' => [
-                'required',
+                $updating ? 'sometimes' : 'required',
                 'string',
                 'digits:11',
                 Rule::unique('teachers', 'cpf')->ignore($teacherId),
@@ -69,6 +64,9 @@ class TeacherRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
+            'email' => $this->filled('email')
+                ? mb_strtolower(trim((string) $this->input('email')))
+                : $this->input('email'),
             'cpf' => $this->filled('cpf')
                 ? preg_replace('/\D/', '', (string) $this->input('cpf'))
                 : $this->input('cpf'),
@@ -81,9 +79,9 @@ class TeacherRequest extends FormRequest
     public function bodyParameters(): array
     {
         return [
-            'user_id' => [
-                'example' => 1,
-            ],
+            'name' => ['example' => 'Maria Silva'],
+            'email' => ['example' => 'maria@example.com'],
+            'password' => ['example' => 'Senha@123'],
             'registration_number' => [
                 'example' => 'TCH101',
             ],
@@ -107,7 +105,8 @@ class TeacherRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'user_id.unique' => 'Este usuário já possui um cadastro de professor.',
+            'email.unique' => 'Este e-mail já está cadastrado.',
+            'password.min' => 'A senha deve conter pelo menos 8 caracteres.',
             'registration_number.unique' => 'Esta matrícula já está cadastrada.',
             'cpf.digits' => 'O CPF deve conter exatamente 11 dígitos.',
             'cpf.unique' => 'Este CPF já está cadastrado.',
